@@ -1,0 +1,343 @@
+---
+import { translator, localeFromPath, localizePath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import Button from "./Button.astro";
+---
+
+<div class="max-w-4xl">
+  <!-- INTRO -->
+  <h2 class="text-2xl md:text-3xl font-bold text-ink tracking-tight mb-4">
+    {t("TIA-942 and Uptime Tier certification support for data centers in Saudi Arabia")}
+  </h2>
+  <p class="text-ink/80 leading-relaxed mb-6">
+    {t("We prepare your design, your facility and your team for ANSI/TIA-942 and Uptime Institute Tier certification. We find the gaps on paper, so you do not pay to fix them on site.")}
+  </p>
+  <div class="mb-10">
+    <Button href={localizePath("/contact", locale)} variant="primary">{t("Request a readiness assessment")}</Button>
+  </div>
+
+  <!-- WHY CERTIFICATION MATTERS IN THE KINGDOM -->
+  <h2 class="text-2xl md:text-3xl font-bold text-ink tracking-tight mb-4">
+    {t("In Saudi Arabia, your certificate decides your registration category")}
+  </h2>
+  <p class="text-ink/80 leading-relaxed mb-6">
+    {t("The Data Center Services Regulations from the Communications, Space and Technology Commission (CST) took effect on 1 January 2024. Any provider offering data center services to others in the Kingdom must register each facility with CST. The category you qualify for depends on the certification your facility holds. Standard and Advanced facilities must also be carrier neutral and submit energy management and sustainability plans.")}
+  </p>
+  <p class="text-ink/80 leading-relaxed mb-8">
+    {t("A design certificate alone does not reach the Standard or Advanced category. The built facility has to be certified, and that is where most projects lose time. We plan for the construction audit from the first drawing.")}
+  </p>
+
+  <!-- <div class="grid md:grid-cols-3 gap-4 mb-10">
+    <div class="bg-ink-light border border-line rounded-sm p-5">
+      <h4 class="text-sm font-semibold text-paper mb-1.5 tracking-tight">Register with confidence</h4>
+      <p class="text-sm text-paper/70 leading-relaxed">Arrive at CST with the construction certificate your target category calls for.</p>
+    </div>
+    <div class="bg-ink-light border border-line rounded-sm p-5">
+      <h4 class="text-sm font-semibold text-paper mb-1.5 tracking-tight">Win the tender</h4>
+      <p class="text-sm text-paper/70 leading-relaxed">Government entities, banks and cloud providers commonly ask for independent proof of resilience before they sign.</p>
+    </div>
+    <div class="bg-ink-light border border-line rounded-sm p-5">
+      <h4 class="text-sm font-semibold text-paper mb-1.5 tracking-tight">Avoid rework</h4>
+      <p class="text-sm text-paper/70 leading-relaxed">A gap found in design costs a revised drawing. The same gap found after handover costs a shutdown.</p>
+    </div>
+  </div> -->
+
+  <h3 class="text-lg font-semibold text-ink tracking-tight mb-4">{t("CST registration categories")}</h3>
+  <div class="overflow-x-auto rounded-sm border border-line mb-10">
+    <table class="w-full text-sm border-collapse min-w-[38rem]">
+      <thead class="bg-ink">
+        <tr>
+          <th class="px-4 py-3 text-start text-xs font-semibold uppercase tracking-wider text-paper whitespace-nowrap">{t("CST category")}</th>
+          <th class="px-4 py-3 text-start text-xs font-semibold uppercase tracking-wider text-paper whitespace-nowrap">{t("Who it is for")}</th>
+          <th class="px-4 py-3 text-start text-xs font-semibold uppercase tracking-wider text-paper whitespace-nowrap">{t("Certification needed")}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink whitespace-nowrap">{t("Qualifying")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("New facilities in development")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("None yet. Upgrade once the facility is complete")}</td>
+        </tr>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink whitespace-nowrap">{t("Limited")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Existing facilities only")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Tier I, a design certificate only, or no certificate")}</td>
+        </tr>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink whitespace-nowrap">{t("Standard")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Operational facilities")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("A CST-recognised Tier II construction certificate")}</td>
+        </tr>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink whitespace-nowrap">{t("Advanced")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Operational facilities")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("A CST-recognised Tier III construction certificate")}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- THE TWO CERTIFICATIONS -->
+  <h2 class="text-2xl md:text-3xl font-bold text-ink tracking-tight mb-4">
+    {t("Two recognised routes to proven resilience")}
+  </h2>
+  <p class="text-ink/80 leading-relaxed mb-8">
+    {t("Both schemes rate a facility on four levels, and level three means the same in each: the site can be maintained without shutting down IT. They differ in who issues the certificate, what is audited and how long it lasts.")}
+  </p>
+
+  <div class="overflow-x-auto rounded-sm border border-line mb-6">
+    <table class="w-full text-sm border-collapse min-w-[46rem]">
+      <thead class="bg-ink">
+        <tr>
+          <th class="px-4 py-3 text-start text-xs font-semibold uppercase tracking-wider text-paper whitespace-nowrap"></th>
+          <th class="px-4 py-3 text-start text-xs font-semibold uppercase tracking-wider text-paper whitespace-nowrap">{t("ANSI/TIA-942")}</th>
+          <th class="px-4 py-3 text-start text-xs font-semibold uppercase tracking-wider text-paper whitespace-nowrap">{t("Uptime Institute Tier")}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink">{t("Owner")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Telecommunications Industry Association (TIA)")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Uptime Institute")}</td>
+        </tr>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink">{t("Current reference")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("ANSI/TIA-942-C (2024)")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Tier Standard: Topology and Tier Standard: Operational Sustainability")}</td>
+        </tr>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink">{t("Levels")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Rated-1 to Rated-4")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Tier I to Tier IV")}</td>
+        </tr>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink">{t("Level 3")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Concurrently maintainable")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Concurrently maintainable")}</td>
+        </tr>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink">{t("Level 4")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Fault tolerant")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Fault tolerant")}</td>
+        </tr>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink">{t("What is audited")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Architecture, electrical, mechanical and telecommunications")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Mechanical, electrical, structural and site elements, with a separate standard for operations")}</td>
+        </tr>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink">{t("Certification stages")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Design, then Constructed Facility. A \"Ready\" certificate covers modular data centers")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Design Documents, then Constructed Facility, then Operational Sustainability")}</td>
+        </tr>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink">{t("Who issues it")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Certification Bodies licensed by TIA")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Uptime Institute only")}</td>
+        </tr>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink">{t("Validity")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Design: 1 year, extendable until the site is operational. Facility: 3 years, with surveillance audits in years 1 and 2")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Design Documents: 2 years. Operational Sustainability: Gold 3 years, Silver 2, Bronze 1")}</td>
+        </tr>
+        <tr class="border-t border-line">
+          <td class="px-4 py-3 align-top font-semibold text-ink">{t("Where to verify a certificate")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("TIA's public register")}</td>
+          <td class="px-4 py-3 align-top text-ink/80">{t("Uptime Institute's list of certified sites")}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="text-ink/80 leading-relaxed mb-6">
+    {t("Not sure which one your project needs? We compare both against your CST category, your customers' tender terms and your budget, then recommend a route. Some Saudi operators hold one certificate, and some hold both.")}
+  </p>
+  <div class="mb-10">
+    <Button href={localizePath("/contact", locale)} variant="primary">{t("Discuss your project")}</Button>
+  </div>
+
+  <!-- OUR SERVICES -->
+  <h2 class="text-2xl md:text-3xl font-bold text-ink tracking-tight mb-6">
+    {t("One team, from first drawing to final certificate")}
+  </h2>
+
+  <h3 class="text-lg font-semibold text-ink tracking-tight mb-2">{t("Certification advisory and readiness")}</h3>
+  <p class="text-ink/80 leading-relaxed mb-4">{t("Know exactly where you stand before the formal audit begins.")}</p>
+  <ul class="space-y-2 mb-8">
+    <li class="flex items-start gap-3">
+      <span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-copper"></span>
+      <span class="text-ink/80 leading-relaxed">{t("Gap assessment of your design or existing facility against your target Rated or Tier level")}</span>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-copper"></span>
+      <span class="text-ink/80 leading-relaxed">{t("Discipline-by-discipline design review: architecture, electrical, mechanical and telecommunications")}</span>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-copper"></span>
+      <span class="text-ink/80 leading-relaxed">{t("A complete submission pack for the certifying body, and answers to every auditor query")}</span>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-copper"></span>
+      <span class="text-ink/80 leading-relaxed">{t("Guidance on which CST registration category your facility can reach")}</span>
+    </li>
+  </ul>
+
+  <h3 class="text-lg font-semibold text-ink tracking-tight mb-2">{t("Design and build")}</h3>
+  <p class="text-ink/80 leading-relaxed mb-4">{t("Facilities engineered for the audit from day one.")}</p>
+  <ul class="space-y-2 mb-8">
+    <li class="flex items-start gap-3">
+      <span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-copper"></span>
+      <span class="text-ink/80 leading-relaxed">{t("Concept and detailed design aimed at your target Rated or Tier objective")}</span>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-copper"></span>
+      <span class="text-ink/80 leading-relaxed">{t("Construction supervision, commissioning and integrated systems testing, so the built facility matches the certified design")}</span>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-copper"></span>
+      <span class="text-ink/80 leading-relaxed">{t("Upgrades that lift an existing facility to a higher level without taking it offline, where the topology allows")}</span>
+    </li>
+  </ul>
+
+  <h3 class="text-lg font-semibold text-ink tracking-tight mb-2">{t("Audit readiness")}</h3>
+  <p class="text-ink/80 leading-relaxed mb-4">{t("Independent eyes on your facility before the formal audit.")}</p>
+  <ul class="space-y-2 mb-8">
+    <li class="flex items-start gap-3">
+      <span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-copper"></span>
+      <span class="text-ink/80 leading-relaxed">{t("Pre-audits that rehearse the formal assessment and list every finding with its fix")}</span>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-copper"></span>
+      <span class="text-ink/80 leading-relaxed">{t("Internal audits between surveillance visits, so your certificate is never at risk")}</span>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-copper"></span>
+      <span class="text-ink/80 leading-relaxed">{t("For Uptime Tier Certification, the assessment is performed by Uptime Institute. We prepare your site, your documents and your team, and stand beside you during the visit")}</span>
+    </li>
+  </ul>
+
+  <h3 class="text-lg font-semibold text-ink tracking-tight mb-2">{t("Training")}</h3>
+  <p class="text-ink/80 leading-relaxed mb-4">{t("A certificate is held by a building, but it is kept by people.")}</p>
+  <ul class="space-y-2 mb-10">
+    <li class="flex items-start gap-3">
+      <span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-copper"></span>
+      <span class="text-ink/80 leading-relaxed">{t("Standards workshops for owners, project managers and consultants")}</span>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-copper"></span>
+      <span class="text-ink/80 leading-relaxed">{t("Coaching for operations teams on procedures, maintenance planning and staffing")}</span>
+    </li>
+  </ul>
+
+  <!-- HOW IT WORKS -->
+  <h2 class="text-2xl md:text-3xl font-bold text-ink tracking-tight mb-6">
+    {t("Six steps to your certificate")}
+  </h2>
+  <ol class="space-y-4 mb-10">
+    <li class="flex items-start gap-4">
+      <span class="w-9 h-9 shrink-0 rounded-full border border-copper text-copper flex items-center justify-center text-sm font-bold">1</span>
+      <p class="text-ink/80 leading-relaxed pt-1.5"><strong class="font-semibold text-ink">{t("Discovery call:")}</strong> {t("We agree your target level, your CST category and your deadline.")}</p>
+    </li>
+    <li class="flex items-start gap-4">
+      <span class="w-9 h-9 shrink-0 rounded-full border border-copper text-copper flex items-center justify-center text-sm font-bold">2</span>
+      <p class="text-ink/80 leading-relaxed pt-1.5"><strong class="font-semibold text-ink">{t("Gap assessment:")}</strong> {t("We review your drawings or walk your site, then give you a written report listing each gap, its severity and its fix.")}</p>
+    </li>
+    <li class="flex items-start gap-4">
+      <span class="w-9 h-9 shrink-0 rounded-full border border-copper text-copper flex items-center justify-center text-sm font-bold">3</span>
+      <p class="text-ink/80 leading-relaxed pt-1.5"><strong class="font-semibold text-ink">{t("Remediation:")}</strong> {t("Your designers or ours close the gaps, and we re-check each one.")}</p>
+    </li>
+    <li class="flex items-start gap-4">
+      <span class="w-9 h-9 shrink-0 rounded-full border border-copper text-copper flex items-center justify-center text-sm font-bold">4</span>
+      <p class="text-ink/80 leading-relaxed pt-1.5"><strong class="font-semibold text-ink">{t("Design certification:")}</strong> {t("We submit your documents to the certifying body and handle its queries until the design certificate is awarded.")}</p>
+    </li>
+    <li class="flex items-start gap-4">
+      <span class="w-9 h-9 shrink-0 rounded-full border border-copper text-copper flex items-center justify-center text-sm font-bold">5</span>
+      <p class="text-ink/80 leading-relaxed pt-1.5"><strong class="font-semibold text-ink">{t("Construction and facility audit:")}</strong> {t("We supervise commissioning and prepare the site for the on-site audit of the constructed facility.")}</p>
+    </li>
+    <li class="flex items-start gap-4">
+      <span class="w-9 h-9 shrink-0 rounded-full border border-copper text-copper flex items-center justify-center text-sm font-bold">6</span>
+      <p class="text-ink/80 leading-relaxed pt-1.5"><strong class="font-semibold text-ink">{t("Staying certified:")}</strong> {t("We support your surveillance audits, recertification and operations assessments for as long as you hold the certificate.")}</p>
+    </li>
+  </ol>
+
+  <!-- FAQ -->
+  <!-- <h2 class="text-2xl md:text-3xl font-bold text-ink tracking-tight mb-6">
+    Frequently asked questions
+  </h2>
+  <div class="space-y-3 mb-10">
+    <details class="group bg-ink-light border border-line rounded-sm">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer px-5 py-4 text-sm font-semibold text-paper list-none">
+        What is the difference between TIA-942 and Uptime Tier certification?
+        <span class="shrink-0 text-copper font-normal transition-transform duration-200 group-open:rotate-45">+</span>
+      </summary>
+      <p class="px-5 pb-5 text-sm text-paper/75 leading-relaxed">Both rate a data center on four levels of resilience. TIA-942 is a published standard audited by Certification Bodies that TIA licenses, and it covers architecture, electrical, mechanical and telecommunications. Tier Certification is awarded only by Uptime Institute and adds a separate certification for how the site is operated.</p>
+    </details>
+    <details class="group bg-ink-light border border-line rounded-sm">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer px-5 py-4 text-sm font-semibold text-paper list-none">
+        Which certificate do I need for CST registration?
+        <span class="shrink-0 text-copper font-normal transition-transform duration-200 group-open:rotate-45">+</span>
+      </summary>
+      <p class="px-5 pb-5 text-sm text-paper/75 leading-relaxed">The CST regulations link the Standard category to a Tier II construction certificate and the Advanced category to a Tier III construction certificate, in each case one that CST recognises. We help you confirm with CST which certificate fits your case before you commit.</p>
+    </details>
+    <details class="group bg-ink-light border border-line rounded-sm">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer px-5 py-4 text-sm font-semibold text-paper list-none">
+        Who issues the certificate?
+        <span class="shrink-0 text-copper font-normal transition-transform duration-200 group-open:rotate-45">+</span>
+      </summary>
+      <p class="px-5 pb-5 text-sm text-paper/75 leading-relaxed">TIA-942 certificates are issued by a TIA-licensed Certification Body. Tier certificates are issued by Uptime Institute. Axion Smart Company prepares your facility, documents and team, and manages the process with the certifying body.</p>
+    </details>
+    <details class="group bg-ink-light border border-line rounded-sm">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer px-5 py-4 text-sm font-semibold text-paper list-none">
+        Is a design certificate enough?
+        <span class="shrink-0 text-copper font-normal transition-transform duration-200 group-open:rotate-45">+</span>
+      </summary>
+      <p class="px-5 pb-5 text-sm text-paper/75 leading-relaxed">It confirms your drawings meet the target level, and it has a limited life: one year for TIA-942, extendable until the site is operational, and two years for Uptime. For the Standard or Advanced CST category, the built facility must be certified.</p>
+    </details>
+    <details class="group bg-ink-light border border-line rounded-sm">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer px-5 py-4 text-sm font-semibold text-paper list-none">
+        How long does a certificate last?
+        <span class="shrink-0 text-copper font-normal transition-transform duration-200 group-open:rotate-45">+</span>
+      </summary>
+      <p class="px-5 pb-5 text-sm text-paper/75 leading-relaxed">A TIA-942 facility certificate is valid for three years, with surveillance audits in the first and second years. Uptime's Operational Sustainability award lasts three years at Gold, two at Silver and one at Bronze.</p>
+    </details>
+    <details class="group bg-ink-light border border-line rounded-sm">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer px-5 py-4 text-sm font-semibold text-paper list-none">
+        Can an operating data center be certified?
+        <span class="shrink-0 text-copper font-normal transition-transform duration-200 group-open:rotate-45">+</span>
+      </summary>
+      <p class="px-5 pb-5 text-sm text-paper/75 leading-relaxed">Yes. We start with a gap assessment of the live site. Some gaps close with documentation, and others need works that we plan around your maintenance windows.</p>
+    </details>
+    <details class="group bg-ink-light border border-line rounded-sm">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer px-5 py-4 text-sm font-semibold text-paper list-none">
+        How long does it take?
+        <span class="shrink-0 text-copper font-normal transition-transform duration-200 group-open:rotate-45">+</span>
+      </summary>
+      <p class="px-5 pb-5 text-sm text-paper/75 leading-relaxed">It depends on the facility's size, its target level and how many gaps we find. Contact us for an estimate based on your project.</p>
+    </details>
+    <details class="group bg-ink-light border border-line rounded-sm">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer px-5 py-4 text-sm font-semibold text-paper list-none">
+        What does it cost?
+        <span class="shrink-0 text-copper font-normal transition-transform duration-200 group-open:rotate-45">+</span>
+      </summary>
+      <p class="px-5 pb-5 text-sm text-paper/75 leading-relaxed">Fees depend on the size of the facility, the level you are aiming for and the stage of the project. Contact us and we will scope the gap assessment with you.</p>
+    </details>
+  </div> -->
+
+  <!-- CLOSING CTA -->
+  <h2 class="text-2xl md:text-3xl font-bold text-ink tracking-tight mb-4">
+    {t("Find out how close you are to certification")}
+  </h2>
+  <p class="text-ink/80 leading-relaxed mb-6">
+    {t("Tell us your target level and a few details about your facility, and we will recommend a clear next step.")}
+  </p>
+  <div class="mb-10">
+    <Button href={localizePath("/contact", locale)} variant="primary">{t("Request a readiness assessment")}</Button>
+  </div>
+
+  <!-- FINE PRINT -->
+  <p class="text-xs text-ink/50 leading-relaxed mb-2">
+    {t("Axion Smart Company is an independent company. ANSI/TIA-942 is a standard of the Telecommunications Industry Association, and TIA-942 certificates are issued by TIA-licensed Certification Bodies. Tier Certification is awarded solely by Uptime Institute. All names and marks belong to their owners.")}
+  </p>
+</div>

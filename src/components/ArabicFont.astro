@@ -1,0 +1,9 @@
+---
+import regular from "@fontsource/noto-sans-arabic/files/noto-sans-arabic-arabic-400-normal.woff2?url";
+import medium from "@fontsource/noto-sans-arabic/files/noto-sans-arabic-arabic-500-normal.woff2?url";
+import semibold from "@fontsource/noto-sans-arabic/files/noto-sans-arabic-arabic-600-normal.woff2?url";
+import bold from "@fontsource/noto-sans-arabic/files/noto-sans-arabic-arabic-700-normal.woff2?url";
+const css = [regular, medium, semibold, bold].map((url, i) => `@font-face{font-family:'Noto Sans Arabic';font-style:normal;font-weight:${400 + i * 100};font-display:swap;src:url('${url}') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-089F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFF} `).join('') + "html[lang=ar]{font-family:'Noto Sans Arabic',Inter,sans-serif}";
+---
+<link rel="preload" href={regular} as="font" type="font/woff2" crossorigin />
+<style is:inline set:html={css} />

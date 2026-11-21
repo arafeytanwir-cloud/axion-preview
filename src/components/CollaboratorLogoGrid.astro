@@ -1,0 +1,102 @@
+---
+import { translator, localeFromPath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import { Image } from "astro:assets";
+
+import prodigyLogo from "../assets/collaborators/1753533902321.jpg";
+import hikvisionLogo from "../assets/collaborators/250px-Hikvision_logo.webp";
+import etapLogo from "../assets/collaborators/ETAP_Color_Logo.svg.webp";
+import schneiderLogo from "../assets/collaborators/download.jpg";
+import abbLogo from "../assets/collaborators/download.png";
+import eatonLogo from "../assets/collaborators/eaton-logo-png_seeklogo-242948.png";
+import siemensLogo from "../assets/collaborators/images.jpg";
+import octaveLogo from "../assets/collaborators/images.png";
+import boschLogo from "../assets/collaborators/imago0168074817s.jpg";
+import apcLogo from "../assets/collaborators/APC.jpeg";
+import ciscoLogo from "../assets/collaborators/Cisco-Logo-Font.webp";
+import sapLogo from "../assets/collaborators/SAP.jpeg";
+import dahuaLogo from "../assets/collaborators/alhua.jpeg";
+import attomLogo from "../assets/collaborators/attom.jpeg";
+import corningLogo from "../assets/collaborators/corning.jpeg";
+import flukeLogo from "../assets/collaborators/fluke.jpeg";
+import fortinetLogo from "../assets/collaborators/fortinet.png";
+import honeywellLogo from "../assets/collaborators/honeywell.jpeg";
+import huaweiLogo from "../assets/collaborators/huawei.jpeg";
+import meggerLogo from "../assets/collaborators/megger.jpeg";
+import omicronLogo from "../assets/collaborators/omicron.jpeg";
+import pactLogo from "../assets/collaborators/pact.png";
+import phoenixContactLogo from "../assets/collaborators/phoenix-contact.jpeg";
+import rittalLogo from "../assets/collaborators/rittal.jpeg";
+import vertivLogo from "../assets/collaborators/vertiv.png";
+import legrandLogo from "../assets/collaborators/legrand.jpeg";
+import signifyLogo from "../assets/collaborators/signify.jpeg";
+import salesForceLogo from "../assets/collaborators/salesforce.webp";
+import microsoftLogo from "../assets/collaborators/microsoft.webp";
+
+const collaboratorLogos = [
+  { src: hikvisionLogo, alt: "Hikvision" },
+  { src: etapLogo, alt: "ETAP" },
+  { src: schneiderLogo, alt: "Schneider Electric" },
+  { src: abbLogo, alt: "ABB" },
+  { src: eatonLogo, alt: "Eaton" },
+  { src: siemensLogo, alt: "Siemens" },
+  { src: prodigyLogo, alt: "Prodigy" },
+  { src: octaveLogo, alt: "Octave Technologies" },
+  { src: boschLogo, alt: "Bosch" },
+  { src: apcLogo, alt: "APC" },
+  { src: ciscoLogo, alt: "Cisco" },
+  { src: sapLogo, alt: "SAP" },
+  { src: dahuaLogo, alt: "Dahua" },
+  { src: attomLogo, alt: "ATTOM" },
+  { src: corningLogo, alt: "Corning" },
+  { src: flukeLogo, alt: "Fluke" },
+  { src: fortinetLogo, alt: "Fortinet" },
+  { src: honeywellLogo, alt: "Honeywell" },
+  { src: huaweiLogo, alt: "Huawei" },
+  { src: meggerLogo, alt: "Megger" },
+  { src: omicronLogo, alt: "OMICRON" },
+  // { src: pactLogo, alt: "PACT" },
+  { src: phoenixContactLogo, alt: "Phoenix Contact" },
+  { src: rittalLogo, alt: "Rittal" },
+  { src: vertivLogo, alt: "Vertiv" },
+  { src: legrandLogo, alt: "Legrand" },
+  { src: signifyLogo, alt: "Signify" },
+  { src: salesForceLogo, alt: "Salesforce" },
+  { src: microsoftLogo, alt: "Microsoft" },
+];
+---
+
+<div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+  {collaboratorLogos.map((logo, i) => (
+    <div class="reveal" style={`--reveal-delay: ${(i % 6) * 60}ms`}>
+      <div class="flex items-center justify-center p-4 border border-line rounded-md bg-white/50 hover:border-copper/30 transition-all duration-300 h-28">
+        <Image
+          src={logo.src}
+          alt={t(logo.alt)}
+          class="h-20 w-auto max-w-full object-contain transition-all duration-300"
+          widths={[240]}
+          loading="lazy"
+        />
+      </div>
+    </div>
+  ))}
+</div>
+
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+</script>

@@ -1,0 +1,75 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+import ArabicFont from "../components/ArabicFont.astro";
+import { localeFromPath, translator, twinPath, unlocalizedPath, routeKeys, stripBase, withBase } from "../i18n";
+import { ARABIC_INDEXABLE, SITE } from "../i18n/config";
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  transparentOnLoad?: boolean;
+}
+
+const { title, description, noindex = false, transparentOnLoad = false } = Astro.props;
+const metaDesc = description || "Specialised engineering, automation, and digital infrastructure services for power, IT, and industrial systems across Saudi Arabia.";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+const arabic = locale === "ar";
+const paired = routeKeys.includes(unlocalizedPath(Astro.url.pathname).replace(/^\/|\/$/g, ""));
+---
+
+<!doctype html>
+<html lang={locale} dir={arabic ? "rtl" : "ltr"}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{t(title)}</title>
+    <meta name="description" content={t(metaDesc)} />
+    <meta property="og:title" content={t(Astro.props.title || "Axion Smart Company")} />
+    <meta property="og:description" content={t(Astro.props.description || "ETAP power studies and automation engineering in Saudi Arabia")} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://axion-s.com/_astro/axion-logo.abCw4Ia4_WQwEB.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href={`https://axion-s.com${stripBase(Astro.url.pathname)}`} />
+    {(noindex || arabic && !ARABIC_INDEXABLE) && <meta name="robots" content={noindex ? "noindex, nofollow" : "noindex, follow"} />}
+    {ARABIC_INDEXABLE && paired && (
+      <>
+        <link rel="alternate" hreflang="en" href={`${SITE}${stripBase(twinPath(Astro.url.pathname, "en"))}`} />
+        <link rel="alternate" hreflang="ar" href={`${SITE}${stripBase(twinPath(Astro.url.pathname, "ar"))}`} />
+        <link rel="alternate" hreflang="x-default" href={`${SITE}${stripBase(twinPath(Astro.url.pathname, "en"))}`} />
+      </>
+    )}
+    {arabic && <ArabicFont />}
+    <link rel="icon" type="image/png" href={withBase("/favicon.png")} sizes="192x192" />
+    <link rel="icon" type="image/x-icon" href={withBase("/favicon.ico")} sizes="any" />
+    {stripBase(Astro.url.pathname) === "/" && (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Axion Smart Company LLC",
+        "url": "https://axion-s.com",
+        "logo": "https://axion-s.com/favicon.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Qais Bin Al Husain St, Al Rawabi",
+          "addressLocality": "Al Khobar",
+          "addressCountry": "SA"
+        },
+        "telephone": "+966547743171",
+        "email": "sales@axion-s.com",
+        "sameAs": [],
+        "description": "Specialised engineering, automation, and digital infrastructure services for power, IT, and industrial systems across Saudi Arabia."
+      })} />
+    )}
+  </head>
+  <body class="min-h-screen bg-paper text-ink antialiased">
+    <Header transparentOnLoad={transparentOnLoad} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

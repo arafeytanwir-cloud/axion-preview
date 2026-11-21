@@ -1,0 +1,71 @@
+---
+import { translator, localeFromPath, localizePath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+interface Props {
+  pillar: "power" | "it" | "civil";
+  title: string;
+  description: string;
+  services: { label: string; href: string }[];
+  class?: string;
+}
+
+const { pillar, title, description, services, class: className = "" } = Astro.props;
+
+const isIt = pillar === "it";
+
+const pillarLabel =
+  pillar === "power"
+    ? "Power & Automation Engineering"
+    : pillar === "it"
+      ? "IT & Smart Building Infrastructure"
+      : "Civil & Structural Engineering";
+---
+
+<div class:list={[
+  "group relative p-6 md:p-8 border border-line bg-ink-light transition-all duration-300 hover:border-opacity-60 rounded-md flex flex-col",
+  isIt ? "hover:border-copper/40" : "hover:border-signal/40",
+  className
+]}>
+  <!-- Accent bar top -->
+  <div class:list={[
+    "absolute top-0 left-0 right-0 h-[2px] rounded-t-[--radius-md]",
+    isIt ? "bg-copper" : "bg-signal"
+  ]}></div>
+
+  <span class:list={[
+    "text-xs font-semibold uppercase tracking-[0.2em] mb-4 block",
+    isIt ? "text-copper" : "text-signal"
+  ]}>
+    {t(pillarLabel)}
+  </span>
+
+  <h3 class="text-xl md:text-2xl font-bold text-paper tracking-tight mb-3">
+    {t(title)}
+  </h3>
+
+  <p class="text-slate text-sm leading-relaxed mb-6">
+    {t(description)}
+  </p>
+
+  <ul class="space-y-2">
+    {services.map((s) => (
+      <li>
+        <a
+          href={localizePath(s.href, locale)}
+          class:list={[
+            "flex items-center gap-2 text-sm transition-colors duration-200",
+            isIt ? "text-paper/70 hover:text-copper" : "text-paper/70 hover:text-signal"
+          ]}
+        >
+          <span class:list={[
+            "inline-block w-1.5 h-1.5 rounded-full shrink-0",
+            isIt ? "bg-copper" : "bg-signal"
+          ]}></span>
+          {t(s.label)}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>

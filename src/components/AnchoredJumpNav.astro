@@ -1,0 +1,76 @@
+---
+import { translator, localeFromPath, localizePath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+interface Props {
+  sections: { id: string; title: string; number?: number }[];
+}
+
+const { sections } = Astro.props;
+---
+
+<nav class="sticky top-24 hidden lg:block" aria-label={t("Section navigation")}>
+  <ul class="space-y-1">
+    {sections.map((s, i) => (
+      <li>
+        <a
+          href={localizePath(`#${s.id}`, locale)}
+          class="jump-nav-link flex items-center gap-3 px-3 py-2 text-sm text-slate hover:text-signal-text transition-colors rounded-sm group"
+          data-target={s.id}
+        >
+          <span class="text-xs text-signal-text/50 group-hover:text-signal-text transition-colors">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <span>{t(s.title)}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<!-- Mobile dropdown version -->
+<nav class="lg:hidden mb-6" aria-label={t("Section navigation")}>
+  <select
+    class="w-full bg-ink border border-line text-paper text-sm px-4 py-3 rounded-sm appearance-none cursor-pointer"
+    onchange={`document.getElementById(this.value)?.scrollIntoView({ behavior: 'smooth' })`}
+    aria-label={t("Jump to section")}
+  >
+    <option value="">{t("Jump to section...")}</option>
+    {sections.map((s) => (
+      <option value={s.id}>{t(s.title)}</option>
+    ))}
+  </select>
+</nav>
+
+<script>
+  function setupJumpNav() {
+    const links = document.querySelectorAll('.jump-nav-link');
+    const sectionIds = Array.from(links).map(l => l.getAttribute('data-target')).filter(Boolean);
+
+    function updateActive() {
+      let current = '';
+      for (const id of sectionIds) {
+        const el = document.getElementById(id!);
+        if (el && el.getBoundingClientRect().top <= 120) {
+          current = id!;
+        }
+      }
+      links.forEach(link => {
+        if (link.getAttribute('data-target') === current) {
+          link.classList.add('text-signal-text');
+          link.classList.remove('text-slate');
+        } else {
+          link.classList.remove('text-signal-text');
+          link.classList.add('text-slate');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+  }
+
+  setupJumpNav();
+  document.addEventListener('astro:after-swap', setupJumpNav);
+</script>

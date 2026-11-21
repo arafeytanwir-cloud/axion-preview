@@ -1,0 +1,93 @@
+---
+import { translator, localeFromPath, localizePath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import { Image } from "astro:assets";
+import logo from "../assets/logo/axion-logo.png";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-ink border-t border-line">
+  <div class="max-w-7xl mx-auto px-5 md:px-16 py-12 md:py-16">
+    <div class="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8">
+      <!-- Column 1: Brand -->
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+            <Image src={logo} alt="Axion Smart Company" class="h-8 w-auto" widths={[120]} />
+          <!-- <span class="font-bold text-paper text-lg tracking-tight">Axion</span> -->
+        </div>
+        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+          {t("Specialised engineering, automation, and digital infrastructure services for power, IT, and industrial systems.")}
+        </p>
+        <ul class="space-y-1.5">
+          <li><a href={localizePath("/", locale)} class="text-sm text-slate-400 hover:text-signal transition-colors">{t("Home")}</a></li>
+          <li><a href={localizePath("/about", locale)} class="text-sm text-slate-400 hover:text-signal transition-colors">{t("About")}</a></li>
+          <li><a href={localizePath("/services", locale)} class="text-sm text-slate-400 hover:text-signal transition-colors">{t("Services")}</a></li>
+          <li><a href={localizePath("/clients", locale)} class="text-sm text-slate-400 hover:text-signal transition-colors">{t("Clients")}</a></li>
+          <li><a href={localizePath("/collaborators", locale)} class="text-sm text-slate-400 hover:text-signal transition-colors">{t("Collaborators")}</a></li>
+          <li><a href={localizePath("/contact", locale)} class="text-sm text-slate-400 hover:text-signal transition-colors">{t("Contact")}</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Power & Automation -->
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-signal mb-4">{t("Power & Automation")}</h4>
+        <ul class="space-y-1.5">
+          <li><a href={localizePath("/services/design-engineering", locale)} class="text-sm text-slate-400 hover:text-signal transition-colors">{t("Design & Engineering")}</a></li>
+          <li><a href={localizePath("/services/etap-network-study", locale)} class="text-sm text-slate-400 hover:text-signal transition-colors">{t("ETAP Network Study")}</a></li>
+          <li><a href={localizePath("/services/substation-automation", locale)} class="text-sm text-slate-400 hover:text-signal transition-colors">{t("Substation Automation")}</a></li>
+          <li><a href={localizePath("/services/specialised-services", locale)} class="text-sm text-slate-400 hover:text-signal transition-colors">{t("Specialised Services")}</a></li>
+          <br>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-signal mb-4">{t("Civil & Structural Design")}</h4>
+            <ul class="space-y-1.5">
+              <li><a href={localizePath("/services/civil-works-landscaping", locale)} class="text-sm text-slate-400 hover:text-copper transition-colors">{t("Civil & Structural Design")}</a></li>
+            </ul>
+          </div>
+        </ul>
+      </div>
+
+      <!-- Column 3: IT & Security -->
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-copper mb-4">{t("IT & Smart Building Infrastructure")}</h4>
+        <ul class="space-y-1.5">
+          <li><a href={localizePath("/services/data-center-it", locale)} class="text-sm text-slate-400 hover:text-copper transition-colors">{t("Data Center & IT")}</a></li>
+          <li><a href={localizePath("/services/software-services", locale)} class="text-sm text-slate-400 hover:text-copper transition-colors">{t("Specialised Software")}</a></li>
+          <li><a href={localizePath("/services/video-surveillance", locale)} class="text-sm text-slate-400 hover:text-copper transition-colors">{t("ELV, BMS & Smart Building Systems")}</a></li>
+          
+        </ul>
+      </div>
+        
+
+
+      <!-- Column 4: Get in touch -->
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-paper mb-4">{t("Get in touch")}</h4>
+        <address class="not-italic space-y-2 text-sm text-slate-400">
+          {locale === "ar" ? <p>{t("Axion Smart Company LLC Qais Bin Al Husain St, Al Rawabi Al Khobar, Saudi Arabia")}</p> : <p>Qais Bin Al Husain St<br/>Al Rawabi, Al Khobar<br/>Saudi Arabia</p>}
+          <p><a href="tel:+966547743171" class="hover:text-signal transition-colors">+966 54 774 3171</a></p>
+          <p><a href="mailto:sales@axion-s.com" class="hover:text-signal transition-colors">sales@axion-s.com</a></p>
+        </address>
+        <!--
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center mt-4 px-5 py-2.5 bg-signal text-ink font-semibold text-sm tracking-tight hover:bg-signal/90 transition-colors rounded-sm"
+        >
+          Get in Touch
+        </a>
+        -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-line">
+    <div class="max-w-7xl mx-auto px-5 md:px-16 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-xs text-slate-400">
+        &copy; {year} {t("Axion Smart Company LLC. All rights reserved.")}
+      </p>
+    </div>
+  </div>
+</footer>

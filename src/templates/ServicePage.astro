@@ -1,0 +1,318 @@
+---
+import { translator, localeFromPath, localizePath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import { render, type CollectionEntry } from "astro:content";
+import ServiceLayout from "../layouts/ServiceLayout.astro";
+import AnchoredJumpNav from "../components/AnchoredJumpNav.astro";
+import SchematicDivider from "../components/SchematicDivider.astro";
+import Button from "../components/Button.astro";
+import DataCenterCertification from "../components/DataCenterCertification.astro";
+import BidiContent from "../components/BidiContent.astro";
+import { Image } from "astro:assets";
+import { heroImages, sectionImages } from "../data/service-images";
+import { isolateLatin } from "../i18n/bidi";
+
+
+interface Props {
+  entry: CollectionEntry<"services">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, metaDescription, eyebrow, sections, features, crossLinks, pillar } = entry.data;
+
+const serviceKey = entry.data.translationKey || entry.id;
+const isCertPage = serviceKey === "data-center-it";
+
+const heroImageData = heroImages[serviceKey];
+const sectionImgMap = sectionImages[serviceKey] || {};
+
+const resolvedSections = sections
+  ? sections.map((s) => ({
+      ...s,
+      resolvedImage: sectionImgMap[s.id],
+    }))
+  : [];
+
+const jumpNavItems = resolvedSections.map((s, i) => ({
+  id: s.id,
+  title: s.title,
+  number: i + 1,
+}));
+
+type Block =
+  | { type: "p"; text: string }
+  | { type: "h"; text: string }
+  | { type: "ul"; items: string[] };
+
+function parseBody(body: string): Block[] {
+  const blocks: Block[] = [];
+  let items: string[] = [];
+  const flush = () => {
+    if (items.length) {
+      blocks.push({ type: "ul", items });
+      items = [];
+    }
+  };
+  for (const raw of body.split("\n")) {
+    const line = raw.trim();
+    if (!line) {
+      flush();
+      continue;
+    }
+    if (line.startsWith("* ")) {
+      items.push(line.slice(2));
+      continue;
+    }
+    flush();
+    if (line.startsWith("## ")) {
+      blocks.push({ type: "h", text: line.slice(3).trim() });
+    } else {
+      blocks.push({ type: "p", text: line });
+    }
+  }
+  flush();
+  return blocks;
+}
+
+function inlineHtml(s: string): string {
+  return (locale === "ar" ? isolateLatin(s) : s)
+    .replace(/\*\*([^*:]+)(:?)\*\*(:?)/g, (_m, g, c) => `<strong>${g}${c}</strong>`)
+    .replace(/`([^`]+)`/g, "<code>$1</code>");
+}
+---
+
+<ServiceLayout title={t(title)} description={t(metaDescription)}>
+  <!-- Hero -->
+  <section class="bg-ink py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <span class:list={[
+        "animate-fade-up animate-fade-up-1 text-sm uppercase tracking-[0.2em] mb-3 block",
+        pillar === "power" ? "text-signal" : "text-copper"
+      ]}>
+        {t(eyebrow)}
+      </span>
+      <h1 class="animate-fade-up animate-fade-up-2 text-3xl md:text-4xl lg:text-5xl font-bold text-paper tracking-tight leading-[1.1] mb-6 max-w-3xl">
+        {t(title)}
+      </h1>
+      <div class="animate-fade-up animate-fade-up-3 mb-8">
+        <Button href={localizePath("/contact", locale)} variant="primary">{t("Request a Quote")}</Button>
+      </div>
+      {heroImageData && (
+        <div class="animate-fade-up animate-fade-up-3 mt-8 rounded-sm overflow-hidden border border-line max-w-3xl">
+          <Image
+            src={heroImageData}
+            alt={t(title)}
+            class="w-full h-auto"
+            widths={[900]}
+          />
+        </div>
+      )}
+    </div>
+    <!-- <SchematicDivider class="max-w-7xl mx-auto mt-12 opacity-40" /> -->
+  </section>
+
+  <!-- Content -->
+  <section class="py-16 md:py-24 bg-paper">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      {isCertPage && (
+        <div class="mb-10">
+          <div role="tablist" aria-label={t("Data center page sections")} class="inline-flex border border-line rounded-sm overflow-hidden bg-ink-light">
+            <button
+              id="tab-overview"
+              type="button"
+              role="tab"
+              aria-controls="panel-overview"
+              aria-selected="true"
+              data-tab="overview"
+              class="px-5 py-3 text-sm font-medium text-paper/70 hover:text-paper transition-colors aria-selected:bg-copper aria-selected:text-paper"
+            >
+              {t("Overview")}
+            </button>
+            <button
+              id="tab-certification"
+              type="button"
+              role="tab"
+              aria-controls="certification"
+              aria-selected="false"
+              tabindex="-1"
+              data-tab="certification"
+              class="px-5 py-3 text-sm font-medium text-paper/70 hover:text-paper transition-colors aria-selected:bg-copper aria-selected:text-paper"
+            >
+              {t("Certification")}
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div id="panel-overview" class="scroll-mt-24" {...(isCertPage ? { role: "tabpanel", "aria-labelledby": "tab-overview" } : {})}>
+      {jumpNavItems.length > 0 ? (
+        <div class="grid lg:grid-cols-[220px_1fr] gap-12">
+          <!-- Jump nav -->
+          <div class={locale === "ar" ? "min-w-0" : "hidden lg:block"}>
+            <AnchoredJumpNav sections={jumpNavItems} />
+          </div>
+
+          <!-- Content -->
+          <div class="max-w-3xl">
+            <div class="reveal prose-width space-y-5 text-ink/80 leading-relaxed mb-12">
+              <BidiContent><Content /></BidiContent>
+            </div>
+
+            {resolvedSections.map((s, i) => (
+              <div id={s.id} class="reveal mb-16 scroll-mt-24" style={`--reveal-delay: ${i * 40}ms`}>
+                <div class="flex items-center gap-3 mb-4">
+                  <span class:list={[
+                    "text-sm font-medium",
+                    pillar === "power" ? "text-signal-text" : "text-copper"
+                  ]}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h2 class="text-2xl md:text-3xl font-bold text-ink tracking-tight">{t(s.title)}</h2>
+                </div>
+                <div class="space-y-4 mb-6">
+                  {parseBody(s.body).map((b) =>
+                    b.type === "h" ? (
+                      <h3 class="text-base font-semibold text-ink tracking-tight">{b.text}</h3>
+                    ) : b.type === "ul" ? (
+                      <ul class="space-y-2">
+                        {b.items.map((it) => (
+                          <li class="flex items-start gap-3">
+                            <span class:list={[
+                              "w-1.5 h-1.5 rounded-full mt-2 shrink-0",
+                              pillar === "power" ? "bg-signal" : "bg-copper"
+                            ]}></span>
+                            <span class="text-ink/80 leading-relaxed" set:html={inlineHtml(it)}></span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p class="text-ink/80 leading-relaxed" set:html={inlineHtml(b.text)}></p>
+                    )
+                  )}
+                </div>
+                {s.resolvedImage && (
+                  <div class="rounded-sm overflow-hidden border border-line">
+                    <Image
+                      src={s.resolvedImage}
+                      alt={t(s.title)}
+                      class="w-full h-auto"
+                      widths={[800]}
+                    />
+                  </div>
+                )}
+                {i < resolvedSections.length - 1 && (
+                  <div class="mt-12">
+                    <SchematicDivider class="opacity-30" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div class="max-w-3xl">
+          <div class="reveal prose-width space-y-5 text-ink/80 leading-relaxed mb-12">
+            <BidiContent><Content /></BidiContent>
+          </div>
+
+          {features && features.length > 0 && (
+            <div class="reveal mb-12">
+              <h3 class="text-xl font-bold text-ink tracking-tight mb-4">{t("What this covers")}</h3>
+              <ul class="space-y-2">
+                {features.map((f, i) => (
+                  <li class="flex items-start gap-3">
+                    <span class:list={[
+                      "w-1.5 h-1.5 rounded-full mt-2 shrink-0",
+                      pillar === "power" ? "bg-signal" : "bg-copper"
+                    ]}></span>
+                    <span class="text-ink/80 text-sm leading-relaxed" style={`--reveal-delay: ${i * 50}ms`}>{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {crossLinks && crossLinks.length > 0 && (
+            <div class="reveal p-6 border border-line rounded-sm bg-ink-light">
+              {crossLinks.map((cl) => (
+                <p class="text-sm text-paper/70 mb-1">
+                  <a href={localizePath(cl.href, locale)} class:list={[
+                    "underline transition-colors",
+                    pillar === "power" ? "hover:text-signal" : "hover:text-copper"
+                  ]}>
+                    {t(cl.text)}
+                  </a>
+                </p>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+      </div>
+
+      {isCertPage && (
+        <div id="certification" hidden class="scroll-mt-24" role="tabpanel" aria-labelledby="tab-certification">
+          <DataCenterCertification />
+        </div>
+      )}
+    </div>
+  </section>
+
+  {isCertPage && (
+    <script>
+      function initDataCenterTabs() {
+        const tabs = document.querySelectorAll<HTMLButtonElement>('[data-tab]');
+        if (!tabs.length) return;
+        const panels = {
+          overview: document.getElementById('panel-overview'),
+          certification: document.getElementById('certification'),
+        };
+        function apply(name: string, scroll: boolean) {
+          const safe = name === 'certification' ? 'certification' : 'overview';
+          tabs.forEach((b) => {
+            const active = b.dataset.tab === safe;
+            b.setAttribute('aria-selected', String(active));
+            b.tabIndex = active ? 0 : -1;
+          });
+          Object.entries(panels).forEach(([key, el]) => {
+            if (!el) return;
+            if (key === safe) el.removeAttribute('hidden');
+            else el.setAttribute('hidden', '');
+          });
+          if (scroll) {
+            requestAnimationFrame(() => {
+              panels[safe as keyof typeof panels]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+          }
+        }
+        tabs.forEach((b) => {
+          b.addEventListener('click', () => {
+            const name = b.dataset.tab ?? 'overview';
+            history.pushState(null, '', `#${name}`);
+            apply(name, false);
+          });
+          b.addEventListener('keydown', (event) => {
+            if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+            event.preventDefault();
+            const list = Array.from(tabs);
+            const rtl = document.documentElement.dir === 'rtl';
+            const delta = (event.key === 'ArrowRight' ? 1 : -1) * (rtl ? -1 : 1);
+            const index = event.key === 'Home' ? 0 : event.key === 'End' ? list.length - 1 : (list.indexOf(b) + delta + list.length) % list.length;
+            list[index].focus();
+            list[index].click();
+          });
+        });
+        window.addEventListener('hashchange', () => {
+          apply(location.hash === '#certification' ? 'certification' : 'overview', false);
+        });
+        const initial = location.hash === '#certification' ? 'certification' : 'overview';
+        apply(initial, location.hash === '#certification');
+      }
+      initDataCenterTabs();
+      document.addEventListener('astro:after-swap', initDataCenterTabs);
+    </script>
+  )}
+</ServiceLayout>

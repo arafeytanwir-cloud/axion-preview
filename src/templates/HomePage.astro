@@ -1,0 +1,218 @@
+---
+import { translator, localeFromPath, localizePath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import LandingLayout from "../layouts/LandingLayout.astro";
+import SchematicDivider from "../components/SchematicDivider.astro";
+import PillarCard from "../components/PillarCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Button from "../components/Button.astro";
+import NetworkBanner from "../components/NetworkBanner.astro";
+import { Image } from "astro:assets";
+// Import client logo images
+import aramcoLogo from "../assets/clients/Aramco-Logo.png";
+import maadenLogo from "../assets/clients/maaden.png";
+import qatarEnergyLogo from "../assets/clients/qatarEnergy.png";
+import nwcLogo from "../assets/clients/nwc.jpg";
+import bilfingerLogo from "../assets/clients/bilfinger-logo.png";
+import nesmaLogo from "../assets/clients/Nesma_Logo.png";
+import zamilLogo from "../assets/clients/zamil.png";
+import enercoLogo from "../assets/clients/enerco.png";
+
+const previewLogos = [
+  { src: aramcoLogo, alt: "Aramco" },
+  { src: maadenLogo, alt: "Maaden" },
+  { src: qatarEnergyLogo, alt: "QatarEnergy" },
+  { src: nwcLogo, alt: "National Water Company" },
+  { src: bilfingerLogo, alt: "Bilfinger" },
+  { src: nesmaLogo, alt: "Nesma & Partners" },
+  { src: zamilLogo, alt: "Zamil" },
+  { src: enercoLogo, alt: "Enerco" },
+];
+
+const pillarData = {
+  power: {
+    pillar: "power" as const,
+    title: "Power & Automation Engineering",
+    description: "Design, simulation, and automation services for electrical power networks — from single-line diagrams to substation digitisation.",
+    services: [
+      { label: "Design & Engineering", href: "/services/design-engineering" },
+      { label: "ETAP Network Study", href: "/services/etap-network-study" },
+      { label: "Substation Automation", href: "/services/substation-automation" },
+      { label: "Specialised Services", href: "/services/specialised-services" },
+    ],
+  },
+  it: {
+    pillar: "it" as const,
+    title: "IT & Smart Building Infrastructure",
+    description: "Data infrastructure, software and surveillance that keep facilities running and secure.",
+    services: [
+      { label: "Data Center & IT Services", href: "/services/data-center-it" },
+      { label: "Specialised Software Services", href: "/services/software-services" },
+      { label: "ELV, BMS & Smart Building Systems", href: "/services/video-surveillance" },
+    ],
+  },
+  civil: {
+    pillar: "civil" as const,
+    title: "Civil & Structural Design",
+    description: "Structural engineering and civil works across industrial and infrastructure projects.",
+    services: [
+      { label: "Civil & Structural Design", href: "/services/civil-works-landscaping" },
+    ],
+  },
+};
+
+const etapChips = [
+  { label: "Load Flow Analysis", href: "/services/etap-network-study#load-flow" },
+  { label: "Short Circuit Analysis", href: "/services/etap-network-study#short-circuit" },
+  { label: "Arc Flash & Mitigation", href: "/services/etap-network-study#arc-flash" },
+  { label: "Protection & Coordination", href: "/services/etap-network-study#protection-coordination" },
+  { label: "Network Harmonic Analysis", href: "/services/etap-network-study#harmonics" },
+];
+---
+
+<LandingLayout
+  title={t("Axion Smart Company | Power, Automation & Digital Infrastructure Engineering — Al Khobar, KSA")}
+  description={t("Axion Smart Company delivers ETAP power studies, industrial automation, data center, security, and civil engineering services across Saudi Arabia. Trusted by Aramco, Maaden, QatarEnergy, and NWC.")}
+>
+  <!-- Hero -->
+  <section class="relative min-h-[85vh] flex items-center bg-ink overflow-hidden">
+    <!-- Network banner background -->
+    <NetworkBanner />
+
+    <!-- Schematic motif overlay -->
+    <div class="absolute inset-0 pointer-events-none">
+      <SchematicDivider animated class="absolute top-1/4 w-full opacity-30" />
+      <SchematicDivider animated class="absolute top-2/3 w-full opacity-20" />
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5 md:px-16 py-20 md:py-32">
+      <span class="animate-fade-up animate-fade-up-1 text-xs font-semibold uppercase tracking-[0.2em] text-signal mb-4 block">{t("Al Khobar, Saudi Arabia")}</span>
+      <h1 class="animate-fade-up animate-fade-up-2 text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-paper tracking-tight leading-[1.05] max-w-4xl mb-6">
+        {t("Engineering trouble-free power. Building smarter infrastructure.")}
+      </h1>
+      <p class="animate-fade-up animate-fade-up-3 text-slate-400 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
+        {t("Axion Smart Company delivers specialised services in power systems engineering, automation, ELV systems, IT, and software — reducing downtime and enhancing operational efficiency for industrial, energy, and government clients across the Kingdom.")}
+      </p>
+      <div class="animate-fade-up animate-fade-up-4 flex flex-wrap gap-3">
+        <Button href={localizePath("/contact", locale)} variant="primary">{t("Get in Touch")}</Button>
+        <Button href={localizePath("/services", locale)} variant="secondary">{t("Explore Our Services")}</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who We Are -->
+  <section class="py-16 md:py-24 bg-paper">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <SectionHeading eyebrow={t("Who We Are")} title={t("Infrastructure that just works.")} class="reveal" />
+      <div class="reveal prose-width space-y-5 text-ink/80 leading-relaxed" style="--reveal-delay: 100ms">
+        <p>
+          {t("We lead the initiative of specialised services for power, automation, variable speed drives, ELV systems, IT, and software — maintaining trouble-free operation, reducing downtime, and enhancing operational efficiency.")}
+        </p>
+        <p>
+          {t("We engineer, design, and analyse power networks using ETAP software to simulate load flows, short-circuit faults, arc flash risks, and protection & coordination — backed by expert services across electrical power distribution systems.")}
+        </p>
+        <p>
+          {t("Our competencies span detailed engineering services for power and process automation projects, giving our clients peace of mind and saving valuable time to enhance productivity.")}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Two Service Pillars -->
+  <section class="py-16 md:py-24 bg-ink">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <SectionHeading
+        eyebrow={t("Our Expertise")}
+        title={t("Multiple areas of deep expertise, one goal.")}
+        subtitle={t("An Infrastructure that just works.")}
+        light
+        class="reveal"
+      />
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="reveal md:row-span-2"><PillarCard {...pillarData.power} class="h-full" /></div>
+        <div class="reveal" style="--reveal-delay: 120ms"><PillarCard {...pillarData.it} class="h-full" /></div>
+        <div class="reveal" style="--reveal-delay: 240ms"><PillarCard {...pillarData.civil} class="h-full" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ETAP Capability Strip -->
+  <section class="py-16 md:py-24 bg-paper">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <SectionHeading
+        eyebrow={t("ETAP Network Study")}
+        title={t("Data-backed answers before problems reach the switchgear.")}
+        class="reveal"
+      />
+      <p class="reveal text-ink/80 leading-relaxed max-w-3xl mb-8" style="--reveal-delay: 80ms">
+        {t("We use ETAP — the industry-standard power system simulation platform — to give clients clear, data-backed answers before problems reach the switchgear.")}
+      </p>
+      <div class="flex flex-wrap gap-3">
+        {etapChips.map((chip, i) => (
+          <div class="reveal" style={`--reveal-delay: ${i * 60}ms`}>
+            <a
+              href={localizePath(chip.href, locale)}
+              class="inline-flex items-center gap-2 px-4 py-2.5 border border-line text-sm font-medium text-ink hover:border-signal hover:text-signal-text transition-colors rounded-sm"
+            >
+              <span class="w-1.5 h-1.5 bg-signal rounded-full shrink-0"></span>
+              {t(chip.label)}
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar (placeholder — to be filled with confirmed numbers) -->
+  <section class="py-12 md:py-16 bg-ink-light border-y border-line">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <div class="reveal flex flex-wrap justify-center gap-8">
+        <!--
+        <div class="text-center">
+          <span class="block text-3xl md:text-4xl font-bold text-signal mb-1">[—]</span>
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate">Years in operation</span>
+        </div>
+        <div class="text-center">
+          <span class="block text-3xl md:text-4xl font-bold text-signal mb-1">[—]</span>
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate">Projects completed</span>
+        </div>
+        -->
+        <div class="text-center">
+          <span dir="ltr" class="block text-3xl md:text-4xl font-bold text-signal mb-1">19+</span>
+          <span class="text-xs font-semibold uppercase tracking-wider text-signal/70">{t("Client organisations")}</span>
+        </div>
+        <div class="text-center">
+          <span class="block text-3xl md:text-4xl font-bold text-signal mb-1">4</span>
+          <span class="text-xs font-semibold uppercase tracking-wider text-signal/70">{t("Sectors served")}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Client Logos Preview -->
+  <section class="py-16 md:py-24 bg-paper">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <SectionHeading eyebrow={t("Trusted by")} title={t("Organisations that rely on our work.")} class="reveal" />
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-4">
+        {previewLogos.map((logo, i) => (
+          <div class="reveal" style={`--reveal-delay: ${i * 50}ms`}>
+            <div class="flex items-center justify-center p-4 border border-line rounded-md bg-white/50 hover:border-signal/30 transition-all duration-300 h-24">
+              <Image
+                src={logo.src}
+                alt={t(logo.alt)}
+                class="h-16 w-auto max-w-full object-contain transition-all duration-300"
+                widths={[200]}
+                loading="lazy"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="reveal mt-8 text-center">
+        <Button href={localizePath("/clients", locale)} variant="ghost">{t("View all clients →")}</Button>
+      </div>
+    </div>
+  </section>
+</LandingLayout>

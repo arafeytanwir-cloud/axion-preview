@@ -1,0 +1,19 @@
+---
+import { translator, localeFromPath, localizePath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import Button from "./Button.astro";
+---
+
+<section class="bg-ink py-16 md:py-24">
+  <div class="reveal max-w-5xl mx-auto px-5 md:px-16 text-center">
+    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-paper tracking-tight mb-4">
+      {t("Let's talk about your next project.")}
+    </h2>
+    <p class="text-slate-400 text-lg mb-8 max-w-xl mx-auto">
+      {t("Whether it's a full ETAP study, a substation retrofit, or a data center build-out — our team is ready to help.")}
+    </p>
+    <Button href={localizePath("/contact", locale)} variant="primary">{t("Get in Touch")}</Button>
+  </div>
+</section>

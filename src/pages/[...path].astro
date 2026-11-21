@@ -1,0 +1,32 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import HomePage from "../templates/HomePage.astro";
+import AboutPage from "../templates/AboutPage.astro";
+import ClientsPage from "../templates/ClientsPage.astro";
+import CollaboratorsPage from "../templates/CollaboratorsPage.astro";
+import ContactPage from "../templates/ContactPage.astro";
+import ServicesPage from "../templates/ServicesPage.astro";
+import ServicePage from "../templates/ServicePage.astro";
+import NotFoundPage from "../templates/NotFoundPage.astro";
+
+export async function getStaticPaths() {
+  const pages = ["", "about", "clients", "collaborators", "contact", "services"];
+  const services = await getCollection("services");
+  return ["en", "ar"].flatMap((locale) => [
+    ...pages.map((page) => ({
+      params: { path: (locale === "ar" ? `ar/${page}` : page).replace(/\/$/, "") || undefined },
+      props: { page },
+    })),
+    ...services.filter((s) => s.data.locale === locale).map((entry) => ({
+      params: { path: `${locale === "ar" ? "ar/" : ""}services/${entry.data.translationKey || entry.id}` },
+      props: { page: "service", entry },
+    })),
+    ...(locale === "ar" ? [{ params: { path: "ar/404" }, props: { page: "404" } }] : []),
+  ]);
+}
+interface Props { page: string; entry?: CollectionEntry<"services"> }
+const { page, entry } = Astro.props as Props;
+const templates = { "": HomePage, about: AboutPage, clients: ClientsPage, collaborators: CollaboratorsPage, contact: ContactPage, services: ServicesPage, "404": NotFoundPage };
+const Page = templates[page as keyof typeof templates];
+---
+{page === "service" && entry ? <ServicePage entry={entry} /> : Page && <Page />}

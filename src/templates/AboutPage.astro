@@ -1,0 +1,106 @@
+---
+import { translator, localeFromPath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import LandingLayout from "../layouts/LandingLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import SchematicDivider from "../components/SchematicDivider.astro";
+import CoreValuesDiagram from "../components/CoreValuesDiagram.astro";
+import { Image } from "astro:assets";
+import aboutBanner from "../assets/photos/about/about-banner.jpeg";
+
+const competencies = [
+  "Power systems design & engineering",
+  "ETAP-based network studies & simulation",
+  "Industrial & process automation",
+  "Substation digitisation & power monitoring",
+  "Data center & IT infrastructure",
+  "Specialised software services",
+  "Civil and Structural Design",
+  "ELV, BMS & Smart Building Systems",
+  "Installation, commissioning & long-term maintenance",
+];
+---
+
+<LandingLayout
+  title={t("About Axion Smart Company | Engineering Services Provider in Al Khobar, KSA")}
+  description={t("Learn about Axion Smart Company — a specialised engineering firm delivering power systems, automation, IT, and infrastructure services across Saudi Arabia.")}
+>
+  <!-- Hero -->
+  <section class="relative bg-ink py-16 md:py-24 overflow-hidden">
+    <Image
+      src={aboutBanner}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[1200]}
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-ink/50"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-5 md:px-16">
+      <h1 class="sr-only">{t("About Axion Smart Company — Engineering Services in Al Khobar, KSA")}</h1>
+      <SectionHeading eyebrow={t("About Us")} title={t("Who We Are")} subtitle={t("Our story, competencies, and the values that guide our work.")} light class="animate-fade-up" />
+    </div>
+  </section>
+
+  <!-- Body -->
+  <section class="py-16 md:py-24 bg-paper">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <div class="reveal max-w-3xl space-y-5 text-ink/80 leading-relaxed">
+        <p>
+          {t("Axion Smart Company leads the initiative of specialised services for power, automation, variable speed drives, ELV systems, IT, and software. Our work is built around one goal: maintaining trouble-free operation for our clients' critical infrastructure — reducing downtime and enhancing operational efficiency wherever power, data, or process systems intersect.")}
+        </p>
+        <p>
+          {t("We engineer, design, and analyse power networks using ETAP software, simulating load flows, short-circuit faults, arc flash risks, and protection & coordination schemes to give clients a clear, quantified picture of their electrical power distribution systems before issues become outages.")}
+        </p>
+        <p>
+          {t("Beyond power engineering, our competencies extend into detailed engineering services for power and process automation projects — giving clients peace of mind and freeing up their valuable time to focus on core operations and productivity.")}
+        </p>
+        <p>
+          {t("Our services also extend to IT, telecom, finance, and data center customers. We help design, build, operate, and maintain data centre infrastructure — whether that means an upgrade, a retrofit, a right-sizing exercise, or a move to on-premise, hybrid, centralised, or regional infrastructure — leveraging smart connected systems to build sustainable, efficient, adaptive, and resilient data centres.")}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Competency Grid -->
+  <section class="py-16 md:py-24 bg-ink">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <SectionHeading eyebrow={t("What we do")} title={t("Our competencies.")} light class="reveal" />
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {competencies.map((item, i) => (
+          <div
+            class="reveal flex items-start gap-3 p-4 border border-line rounded-sm"
+            style={`--reveal-delay: ${(i % 6) * 60}ms`}
+          >
+            <span class:list={[
+              "text-xs mt-0.5 shrink-0",
+              i % 2 === 0 ? "text-signal" : "text-copper"
+            ]}>
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span class="text-sm text-paper/80">{t(item)}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <CoreValuesDiagram />
+
+  <!-- Location -->
+  <section class="py-16 md:py-24 bg-ink">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <SectionHeading
+        eyebrow={t("Where we're based")}
+        title={t("Al Khobar, Saudi Arabia")}
+        light
+        class="reveal"
+      />
+      <p class="reveal text-paper/80 leading-relaxed max-w-2xl" style="--reveal-delay: 100ms">
+        {t("Headquartered in Al Khobar, in the Kingdom's Eastern Province, serving clients across Saudi Arabia and the broader MEA region.")}
+      </p>
+    </div>
+  </section>
+</LandingLayout>

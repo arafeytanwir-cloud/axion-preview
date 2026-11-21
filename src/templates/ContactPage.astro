@@ -1,0 +1,98 @@
+---
+import { translator, localeFromPath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import LandingLayout from "../layouts/LandingLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ContactForm from "../components/ContactForm.tsx";
+import { Image } from "astro:assets";
+import contactImg from "../assets/photos/contact-us-portrait-tech-overlay.png";
+import mapImg from "../assets/photos/map.png";
+---
+
+<LandingLayout
+  title={t("Contact Axion Smart Company | Al Khobar, Saudi Arabia")}
+  description={t("Get in touch with Axion Smart Company for power engineering, automation, IT, and infrastructure services in Saudi Arabia.")}
+>
+  <section class="bg-ink py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <h1 class="sr-only">{t("Contact Axion Smart Company — Al Khobar, Saudi Arabia")}</h1>
+      <SectionHeading
+        eyebrow={t("Contact")}
+        title={t("Get in Touch")}
+        subtitle={t("Whether you have a question, need a consultation, or want to discuss a project — our team is ready to help.")}
+        light
+        class="animate-fade-up"
+      />
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24 bg-paper">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <!-- Form -->
+        <div class="reveal">
+          <ContactForm locale={locale} client:load />
+        </div>
+
+        <!-- Details -->
+        <div class="reveal space-y-8" style="--reveal-delay: 120ms">
+          <!-- Image -->
+          <div class="rounded-sm overflow-hidden border border-line">
+            <Image
+              src={contactImg}
+              alt={t("Axion Smart Company team")}
+              class="w-full h-48 md:h-56 object-cover"
+              widths={[800]}
+            />
+          </div>
+
+          <div>
+            <h3 class="text-lg font-bold text-ink tracking-tight mb-4">{t("Contact details")}</h3>
+            <address class="not-italic space-y-3 text-sm text-ink/80">
+              <div>
+                <span class="text-xs uppercase tracking-wider text-slate block mb-1">{t("Address")}</span>
+                {locale === "ar" ? <p>{t("Axion Smart Company LLC Qais Bin Al Husain St, Al Rawabi Al Khobar, Saudi Arabia")}</p> : <p>Axion Smart Company LLC<br/>Qais Bin Al Husain St, Al Rawabi<br/>Al Khobar, Saudi Arabia</p>}
+              </div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-slate block mb-1">{t("Phone")}</span>
+                <a href="tel:+966547743171" class="hover:text-signal-text transition-colors">+966 54 774 3171</a>
+              </div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-slate block mb-1">{t("Email")}</span>
+                <a href="mailto:sales@axion-s.com" class="hover:text-signal-text transition-colors">sales@axion-s.com</a>
+              </div>
+            </address>
+          </div>  
+
+          <div class="overflow-hidden aspect-[942/700]">
+            <Image
+              src={mapImg}
+              alt={t("Axion Smart Company location — Al Khobar, Saudi Arabia")}
+              class="w-full h-full object-cover"
+              widths={[800]}
+            />
+          </div>
+
+          <!-- Map embed -->
+          <!-- commented out 
+          <div class="rounded-sm overflow-hidden border border-line">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3577.4!2d50.2!3d26.28!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDE2JzQ4LjAiTiA1MMKwMTInMDAuMCJF!5e0!3m2!1sen!2ssa"
+              width="100%"
+              height="250"
+              style="border:0"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Axion Smart Company location in Al Khobar"
+            ></iframe>
+          </div>
+
+          -->
+        </div>
+      </div>
+    </div>
+  </section>
+</LandingLayout>

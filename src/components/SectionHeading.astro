@@ -1,0 +1,40 @@
+---
+import { translator, localeFromPath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  class?: string;
+  light?: boolean;
+}
+
+const { eyebrow, title, subtitle, class: className = "", light = false } = Astro.props;
+---
+
+<div class:list={["mb-10 md:mb-14", className]}>
+  {eyebrow && (
+    <span class:list={[
+      "text-sm font-semibold uppercase tracking-[0.2em] mb-3 block",
+      light ? "text-signal" : "text-signal-text"
+    ]}>
+      {t(eyebrow)}
+    </span>
+  )}
+  <h2 class:list={[
+    "font-bold tracking-tight leading-[1.1]",
+    light ? "text-3xl md:text-4xl lg:text-5xl text-paper" : "text-3xl md:text-4xl lg:text-5xl text-ink"
+  ]}>
+    {t(title)}
+  </h2>
+  {subtitle && (
+    <p class:list={[
+      "mt-4 text-lg max-w-2xl",
+      light ? "text-slate-400" : "text-slate"
+    ]}>
+      {t(subtitle)}
+    </p>
+  )}
+</div>

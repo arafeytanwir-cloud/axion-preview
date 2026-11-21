@@ -1,0 +1,304 @@
+---
+import { translator, localeFromPath, localizePath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import { Image } from "astro:assets";
+import logo from "../assets/logo/axion-logo.png";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+import { unlocalizedPath } from "../i18n";
+
+interface Props {
+  transparentOnLoad?: boolean;
+}
+
+const { transparentOnLoad = false } = Astro.props;
+const currentPath = unlocalizedPath(Astro.url.pathname).replace(/\/$/, "") || "/";
+
+const mainNav = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Clients", href: "/clients" },
+  { label: "Collaborators", href: "/collaborators" },
+  { label: "Contact", href: "/contact" },
+];
+
+const megaData = {
+  power: {
+    label: "Power & Automation Engineering",
+    items: [
+      { label: "Design & Engineering", href: "/services/design-engineering" },
+      { label: "ETAP Network Study", href: "/services/etap-network-study" },
+      { label: "Substation Automation", href: "/services/substation-automation" },
+      { label: "Specialised Services", href: "/services/specialised-services" },
+    ],
+  },
+  it: {
+    label: "IT & Smart Building Infrastructure",
+    items: [
+      { label: "Data Center & IT Services", href: "/services/data-center-it" },
+      { label: "Specialised Software Services", href: "/services/software-services" },
+      { label: "ELV, BMS & Smart Building Systems", href: "/services/video-surveillance" },
+      // { label: "Civil Works & Landscaping", href: "/services/civil-works-landscaping" },
+    ],
+  },
+  civil: {
+    label: "Civil & Structural Engineering",
+    items: [
+      { label: "Civil & Structural Design", href: "/services/civil-works-landscaping" },
+    ],
+  },
+};
+---
+
+<header
+  id="site-header"
+  class:list={[
+    "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+    transparentOnLoad
+      ? "bg-transparent text-paper header-transparent-on-load"
+      : "bg-ink text-paper border-b border-line"
+  ]}
+  data-transparent={transparentOnLoad ? "true" : "false"}
+>
+  <div class="header-container w-full max-w-7xl mx-auto ps-5 pe-5 md:ps-16 md:pe-16 flex items-center justify-between gap-4 h-16 md:h-18">
+    <!-- Logo -->
+    <a href={localizePath("/", locale)} class="flex items-center gap-2 shrink-0">
+      <Image
+        src={logo}
+        alt="Axion Smart Company"
+        class="h-8 w-auto"
+        widths={[120]}
+        loading={transparentOnLoad ? "eager" : "lazy"}
+      />
+      <!--
+      <span class="font-bold text-lg tracking-tight hidden sm:inline">Smart</span>
+      -->
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="header-primary-nav hidden xl:flex items-center gap-1" aria-label={t("Main navigation")}>
+      {mainNav.map((item) => (
+        <div class:list={["relative", item.label === "Services" ? "mega-menu-parent" : ""]}>
+          <a
+            href={localizePath(item.href, locale)}
+            class:list={[
+              "px-3 py-2 text-sm font-medium transition-colors duration-200",
+              currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href))
+                ? "text-signal"
+                : "text-paper/70 hover:text-paper"
+            ]}
+          >
+            {t(item.label)}
+          </a>
+          {item.label === "Services" && (
+            <div class="mega-menu absolute top-full left-1/2 -translate-x-1/2 w-[560px] bg-ink border border-line p-6 rounded-md shadow-2xl">
+              <div class="grid grid-cols-2 gap-6">
+                <div>
+                  <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-signal mb-3">{t(megaData.power.label)}</h3>
+                  <ul class="space-y-1.5">
+                    {megaData.power.items.map((s) => (
+                      <li>
+                        <a href={localizePath(s.href, locale)} class="text-sm text-paper/60 hover:text-signal transition-colors block py-1">{t(s.label)}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-copper mb-3">{t(megaData.it.label)}</h3>
+                  <ul class="space-y-1.5">
+                    {megaData.it.items.map((s) => (
+                      <li>
+                        <a href={localizePath(s.href, locale)} class="text-sm text-paper/60 hover:text-copper transition-colors block py-1">{t(s.label)}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-signal mb-3">{t(megaData.civil.label)}</h3>
+                  <ul class="space-y-1.5">
+                    {megaData.civil.items.map((s) => (
+                      <li>
+                        <a href={localizePath(s.href, locale)} class="text-sm text-paper/60 hover:text-signal transition-colors block py-1">{t(s.label)}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+
+    <div class="header-actions flex shrink-0 items-center gap-3">
+      <!-- Desktop CTA -->
+      <a
+        href={localizePath("/contact", locale)}
+        class="header-contact-cta hidden xl:inline-flex h-10 items-center justify-center whitespace-nowrap px-5 py-2 bg-signal text-ink font-semibold text-sm tracking-tight hover:bg-signal/90 transition-colors rounded-sm"
+      >
+        {t("Get in Touch")}
+      </a>
+
+      <LanguageSwitcher />
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-btn"
+        class="xl:hidden flex shrink-0 items-center justify-center w-10 h-10 text-paper"
+        aria-label={t("Open menu")}
+        aria-expanded="false"
+      >
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div id="nav-overlay" class="nav-overlay fixed inset-0 bg-ink/60 z-40 xl:hidden"></div>
+  <div id="nav-drawer" class="nav-drawer fixed top-0 end-0 bottom-0 w-80 max-w-[85vw] bg-ink border-s border-line z-50 xl:hidden overflow-y-auto">
+    <div class="p-5">
+      <div class="flex items-center justify-between mb-8">
+        <span class="font-bold text-paper">{t("Menu")}</span>
+        <button id="mobile-menu-close" class="w-10 h-10 flex items-center justify-center text-paper" aria-label={t("Close menu")}>
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="mb-6 px-3">
+        <LanguageSwitcher class="w-full" />
+      </div>
+
+      <nav class="space-y-1" aria-label={t("Mobile navigation")}>
+        {mainNav.map((item) => (
+          <a
+            href={localizePath(item.href, locale)}
+            class:list={[
+              "block px-3 py-2.5 text-sm font-medium rounded-sm transition-colors",
+              currentPath === item.href
+                ? "text-signal bg-signal/10"
+                : "text-paper/70 hover:text-paper hover:bg-paper/5"
+            ]}
+          >
+            {t(item.label)}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Pillar groups -->
+      <div class="mt-8 space-y-6">
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-signal mb-3 px-3">{t(megaData.power.label)}</h3>
+          <ul class="space-y-0.5">
+            {megaData.power.items.map((s) => (
+              <li>
+                <a href={localizePath(s.href, locale)} class="block px-3 py-2 text-sm text-paper/50 hover:text-signal transition-colors">{t(s.label)}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-signal mb-3 px-3">{t(megaData.civil.label)}</h3>
+          <ul class="space-y-0.5">
+            {megaData.civil.items.map((s) => (
+              <li>
+                <a href={localizePath(s.href, locale)} class="block px-3 py-2 text-sm text-paper/50 hover:text-signal transition-colors">{t(s.label)}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-copper mb-3 px-3">{t(megaData.it.label)}</h3>
+          <ul class="space-y-0.5">
+            {megaData.it.items.map((s) => (
+              <li>
+                <a href={localizePath(s.href, locale)} class="block px-3 py-2 text-sm text-paper/50 hover:text-copper transition-colors">{t(s.label)}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-8 px-3">
+        <a
+          href={localizePath("/contact", locale)}
+          class="block w-full text-center px-5 py-3 bg-signal text-ink font-semibold text-sm tracking-tight hover:bg-signal/90 transition-colors rounded-sm"
+        >
+          {t("Get in Touch")}
+        </a>
+      </div>
+
+      <div class="mt-6 px-3 border-t border-line pt-6">
+        <a href="tel:+966547743171" class="text-sm text-paper/50 hover:text-signal transition-colors block mb-2">+966 54 774 3171</a>
+        <a href="mailto:sales@axion-s.com" class="text-sm text-paper/50 hover:text-signal transition-colors block">sales@axion-s.com</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Spacer for fixed header -->
+<div class="h-16 md:h-18"></div>
+
+<script>
+  function setupHeader() {
+    const header = document.getElementById('site-header');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const closeBtn = document.getElementById('mobile-menu-close');
+    const drawer = document.getElementById('nav-drawer');
+    const overlay = document.getElementById('nav-overlay');
+    const transparentOnLoad = header?.dataset.transparent === 'true';
+
+    function openMenu() {
+      drawer?.classList.add('open');
+      overlay?.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      menuBtn?.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeMenu() {
+      drawer?.classList.remove('open');
+      overlay?.classList.remove('open');
+      document.body.style.overflow = '';
+      menuBtn?.setAttribute('aria-expanded', 'false');
+    }
+
+    menuBtn?.addEventListener('click', openMenu);
+    closeBtn?.addEventListener('click', closeMenu);
+    overlay?.addEventListener('click', closeMenu);
+
+    // Scroll behavior for transparent-on-load pages
+    if (transparentOnLoad) {
+      window.addEventListener('scroll', () => {
+        if (!header) return;
+        if (window.scrollY > 80) {
+          header.classList.remove('bg-transparent');
+          header.classList.add('bg-ink', 'border-b', 'border-line');
+        } else {
+          header.classList.add('bg-transparent');
+          header.classList.remove('bg-ink', 'border-b', 'border-line');
+        }
+      }, { passive: true });
+    }
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.01, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach((el) => observer.observe(el));
+  }
+
+  setupHeader();
+  document.addEventListener('astro:after-swap', setupHeader);
+</script>

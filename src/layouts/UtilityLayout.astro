@@ -1,0 +1,18 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import CTASection from "../components/CTASection.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  transparentOnLoad?: boolean;
+}
+
+const { title, description, noindex, transparentOnLoad } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} noindex={noindex} transparentOnLoad={transparentOnLoad}>
+  <slot />
+  <CTASection />
+</BaseLayout>

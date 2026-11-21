@@ -1,0 +1,46 @@
+---
+import { localeFromPath, translator, twinPath } from "../i18n";
+interface Props { class?: string }
+const { class: className = "" } = Astro.props;
+const locale = localeFromPath(Astro.url.pathname);
+const target = locale === "en" ? "ar" : "en";
+const t = translator(locale);
+---
+<a
+  href={twinPath(Astro.url.pathname, target)}
+  lang={target}
+  dir={target === "ar" ? "rtl" : "ltr"}
+  hreflang={target}
+  aria-label={t(target === "ar" ? "Switch language to Arabic" : "Switch language to English")}
+  data-language={target}
+  class:list={[
+    "language-switcher shrink-0 inline-flex h-10 items-center justify-center whitespace-nowrap rounded-sm border border-paper/20 bg-paper/5 px-4 text-sm font-semibold text-paper transition-colors duration-200 hover:border-signal/60 hover:bg-paper/10 hover:text-signal focus-visible:border-signal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal",
+    className
+  ]}
+>{target === "ar" ? "العربية" : "English"}</a>
+
+<script>
+  // Only a visitor's explicit choice is remembered. No Accept-Language detection.
+  function setupLanguage() {
+    const switchers = document.querySelectorAll<HTMLAnchorElement>('[data-language]');
+    if (!switchers.length) return;
+    switchers.forEach((switcher) => {
+      if (switcher.dataset.languageBound) return;
+      switcher.dataset.languageBound = 'true';
+      switcher.addEventListener('click', () => {
+        try { localStorage.setItem('axion-locale', switcher.dataset.language!); } catch { /* storage can be disabled */ }
+        switcher.href = switcher.pathname + location.search + location.hash;
+      });
+    });
+    const switcher = switchers[0];
+    if (/bot|crawler|spider|slurp|bingpreview|facebookexternalhit|headlesschrome/i.test(navigator.userAgent)) return;
+    try {
+      const preferred = localStorage.getItem('axion-locale');
+      if (preferred === switcher.dataset.language) {
+        location.replace(switcher.href + location.search + location.hash);
+      }
+    } catch { /* The ordinary language link remains usable without storage. */ }
+  }
+  setupLanguage();
+  document.addEventListener('astro:after-swap', setupLanguage);
+</script>

@@ -1,0 +1,32 @@
+---
+import { translator, localeFromPath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import UtilityLayout from "../layouts/UtilityLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CollaboratorLogoGrid from "../components/CollaboratorLogoGrid.astro";
+---
+
+<UtilityLayout
+  title={t("Collaborators | Axion Smart Company")}
+  description={t("Axion Smart Company partners with leading technology and equipment manufacturers to deliver reliable, future-ready solutions.")}
+>
+  <section class="bg-ink py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <SectionHeading
+        eyebrow={t("Collaborators")}
+        title={t("Our Collaborators")}
+        subtitle={t("We leverage industry leading technologies to build our solutions.")}
+        light
+        class="animate-fade-up"
+      />
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24 bg-paper">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <CollaboratorLogoGrid />
+    </div>
+  </section>
+</UtilityLayout>

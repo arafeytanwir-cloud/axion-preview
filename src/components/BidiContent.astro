@@ -1,0 +1,11 @@
+---
+import { localeFromPath } from "../i18n";
+import { isolateLatin } from "../i18n/bidi";
+const html = await Astro.slots.render("default");
+// This slot contains our trusted collection Markdown. Isolate text runs only,
+// leaving all tags/attributes (including hrefs and image assets) untouched.
+const output = localeFromPath(Astro.url.pathname) === "ar"
+  ? html.split(/(<[^>]+>)/g).map((part) => part.startsWith("<") ? part : isolateLatin(part)).join("")
+  : html;
+---
+<Fragment set:html={output} />

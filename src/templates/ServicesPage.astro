@@ -1,0 +1,152 @@
+---
+import { translator, localeFromPath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import LandingLayout from "../layouts/LandingLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import { Image } from "astro:assets";
+import servicesBanner from "../assets/photos/services/services-banner.jpg";
+
+const powerServices = [
+  {
+    title: "Design & Engineering",
+    description: "Detailed engineering services for power and process automation projects — from single-line diagrams to full electrical system design.",
+    href: "/services/design-engineering",
+    pillar: "power" as const,
+  },
+  {
+    title: "ETAP Network Study",
+    description: "Load flow, short circuit, arc flash, protection & coordination, and harmonic analysis using ETAP software.",
+    href: "/services/etap-network-study",
+    pillar: "power" as const,
+  },
+  {
+    title: "Substation Automation",
+    description: "Wireless, add-on power digitisation for existing electrical panels — fault detection, heat sensing, and power monitoring.",
+    href: "/services/substation-automation",
+    pillar: "power" as const,
+  },
+  {
+    title: "Specialised Services",
+    description: "Flexible maintenance plans, equipment upgrades, installation & commissioning, and spare parts management.",
+    href: "/services/specialised-services",
+    pillar: "power" as const,
+  },
+];
+
+const civilServices = [
+  {
+    title: "Civil & Structural Design",
+    description: "Civil and structural engineering soultions supporting infrastructure and facility projects.",
+    href: "/services/civil-works-landscaping", 
+    pillar: "power" as const, 
+  },
+];
+
+const itServices = [
+  {
+    title: "Data Center & IT Services",
+    description: "End-to-end data center design, build, and maintenance — on-premise, hybrid, centralised, or regional infrastructure.",
+    href: "/services/data-center-it",
+    pillar: "it" as const,
+  },
+  {
+    title: "Specialised Software Services",
+    description: "Software services supporting power system engineering, automation, and digital infrastructure projects.",
+    href: "/services/software-services",
+    pillar: "it" as const,
+  },
+  {
+    title: "ELV, BMS & Smart Building Systems",
+    description: "Perimeter and facility video surveillance system design and installation for industrial and commercial sites.",
+    href: "/services/video-surveillance",
+    pillar: "it" as const,
+  },
+];
+---
+
+<LandingLayout
+  title={t("Our Services | Axion Smart Company")}
+  description={t("Explore Axion Smart Company's full range of services — power engineering, ETAP studies, automation, data centers, surveillance, and civil works.")}
+>
+  <section class="relative bg-ink py-16 md:py-24 overflow-hidden">
+    <Image
+      src={servicesBanner}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[1200]}
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-ink/80"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-5 md:px-16">
+      <h1 class="sr-only">{t("Specialised Power & Automation Engineering Services")}</h1>
+      <SectionHeading
+        eyebrow={t("Services")}
+        title={t("What We Do")}
+        subtitle={t("Areas of deep expertise, to achieve an infrastructure that just works.")}
+        light
+        class="animate-fade-up"
+      />
+    </div>
+  </section>
+
+  <!-- Power & Automation -->
+  <section class="py-16 md:py-24 bg-paper">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <div class="mb-10">
+        <span class="reveal text-s uppercase tracking-[0.2em] text-signal-text mb-3 block">{t("Power & Automation Engineering")}</span>
+        <p class="reveal text-ink/70 max-w-2xl leading-relaxed" style="--reveal-delay: 80ms">
+          {t("Design, simulation, and automation services for electrical power networks — from single-line diagrams to substation digitisation.")}
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        {powerServices.map((s, i) => (
+          <div class="reveal" style={`--reveal-delay: ${(i % 4) * 80}ms`}>
+            <ServiceCard {...s} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- IT & Smart Building Infrastructure -->
+  <section class="py-16 md:py-24 bg-ink">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <div class="mb-10">
+        <span class="reveal text-s uppercase tracking-[0.2em] text-copper mb-3 block">{t("IT & Smart Building Infrastructure")}</span>
+        <p class="reveal text-paper/70 max-w-2xl leading-relaxed" style="--reveal-delay: 80ms">
+          {t("Data infrastructure, software, and surveillance that keep facilities running and secure.")}
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        {itServices.map((s, i) => (
+          <div class="reveal" style={`--reveal-delay: ${(i % 4) * 80}ms`}>
+            <ServiceCard {...s} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Civil & Site Works -->
+  <section class="py-16 md:py-24 bg-paper">
+    <div class="max-w-7xl mx-auto px-5 md:px-16">
+      <div class="mb-10">
+        <span class="reveal text-s uppercase tracking-[0.2em] text-signal-text mb-3 block">{t("Civil & Structural Design")}</span>
+        <p class="reveal text-ink/70 max-w-2xl leading-relaxed" style="--reveal-delay: 80ms">
+          {t("Civil and structural design supporting infrastructure and facility projects.")}
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        {civilServices.map((s, i) => (
+          <div class="reveal" style={`--reveal-delay: ${(i % 4) * 80}ms`}>
+            <ServiceCard {...s} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</LandingLayout>

@@ -1,0 +1,248 @@
+---
+import { translator, localeFromPath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import SectionHeading from "./SectionHeading.astro";
+
+const values = [
+  {
+    title: "Excellence",
+    description:
+      "Delivering reliable, high-quality engineering and technology solutions with uncompromising professional standards.",
+    accent: "signal",
+  },
+  {
+    title: "Innovation",
+    description:
+      "Embracing technology, creativity, and smarter ways of working to solve tomorrow's challenges.",
+    accent: "copper",
+  },
+  {
+    title: "Collaboration",
+    description:
+      "Working together with clients, partners, and teams to create better solutions and shared success.",
+    accent: "signal",
+  },
+  {
+    title: "Sustainability",
+    description:
+      "Creating efficient, responsible, and future-ready solutions that deliver lasting value.",
+    accent: "copper",
+  },
+];
+
+const hubTitle = "Shared Values";
+const hubSynthesis = "The principles that guide every project we take on.";
+
+const icons = {
+  star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>',
+  bulb: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>',
+  users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  leaf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>',
+  sparkle:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>',
+};
+
+const badgeSignal = "bg-signal-dim text-signal border-signal/30";
+const badgeCopper = "bg-copper-dim text-copper border-copper/30";
+const titleSignal = "text-signal-text";
+const titleCopper = "text-copper";
+---
+
+<section class="bg-paper py-16 md:py-24">
+  <div class="max-w-7xl mx-auto px-5 md:px-16">
+    <SectionHeading
+      eyebrow={t("Core Values")}
+      title={t("Values that power everything we do.")}
+      class="reveal"
+    />
+
+    <!-- Desktop / tablet: radial hub-and-spoke -->
+    <div class="reveal relative hidden lg:block aspect-[10/7] w-full" style="--reveal-delay: 100ms">
+      <!-- Hub -->
+      <div class="hub-center absolute z-20" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+        <div class="flex flex-col items-center justify-center text-center gap-2.5 w-48 h-48 rounded-full border border-line bg-white/50 p-5">
+          <span class="text-signal" set:html={icons.sparkle} />
+          <p class="text-[14px] font-semibold uppercase tracking-[0.12em] text-ink leading-relaxed">
+            {t(hubTitle)}
+          </p>
+          <p class="text-ink/80 text-[12px] leading-relaxed">
+            {t(hubSynthesis)}
+          </p>
+        </div>
+      </div>
+
+      <!-- Top: Excellence -->
+      <div class="hub-group hub-top absolute z-10" style="left: 50%; top: 20%; transform: translate(-50%, -50%);">
+        <div class="relative">
+          <div class="hub-badge flex items-center justify-center w-11 h-11 rounded-full border bg-signal-dim text-signal border-signal/30">
+            <span set:html={icons.star} />
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-4 text-center" style="width: 230px">
+            <h3 class="text-base font-semibold uppercase tracking-[0.15em] text-signal-text mb-1.5">{t(values[0].title)}</h3>
+            <p class="hub-desc text-ink/80 text-sm leading-relaxed transition-colors duration-300">{t(values[0].description)}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Innovation -->
+      <div class="hub-group hub-right absolute z-10" style="left: 78%; top: 50%; transform: translate(-50%, -50%);">
+        <div class="relative">
+          <div class="hub-badge flex items-center justify-center w-11 h-11 rounded-full border bg-copper-dim text-copper border-copper/30">
+            <span set:html={icons.bulb} />
+          </div>
+          <div class="absolute left-full ms-4 top-1/2 -translate-y-1/2 text-start" style="width: 240px">
+            <h3 class="text-base font-semibold uppercase tracking-[0.15em] text-copper mb-1.5">{t(values[1].title)}</h3>
+            <p class="hub-desc text-ink/80 text-sm leading-relaxed transition-colors duration-300">{t(values[1].description)}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom: Collaboration -->
+      <div class="hub-group hub-bottom absolute z-10" style="left: 50%; top: 80%; transform: translate(-50%, -50%);">
+        <div class="relative">
+          <div class="hub-badge flex items-center justify-center w-11 h-11 rounded-full border bg-signal-dim text-signal border-signal/30">
+            <span set:html={icons.users} />
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 top-full mt-4 text-center" style="width: 230px">
+            <h3 class="text-base font-semibold uppercase tracking-[0.15em] text-signal-text mb-1.5">{t(values[2].title)}</h3>
+            <p class="hub-desc text-ink/80 text-sm leading-relaxed transition-colors duration-300">{t(values[2].description)}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Left: Sustainability -->
+      <div class="hub-group hub-left absolute z-10" style="left: 22%; top: 50%; transform: translate(-50%, -50%);">
+        <div class="relative">
+          <div class="hub-badge flex items-center justify-center w-11 h-11 rounded-full border bg-copper-dim text-copper border-copper/30">
+            <span set:html={icons.leaf} />
+          </div>
+          <div class="absolute right-full me-4 top-1/2 -translate-y-1/2 text-end" style="width: 240px">
+            <h3 class="text-base font-semibold uppercase tracking-[0.15em] text-copper mb-1.5">{t(values[3].title)}</h3>
+            <p class="hub-desc text-ink/80 text-sm leading-relaxed transition-colors duration-300">{t(values[3].description)}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connectors -->
+      <svg
+        class="absolute inset-0 w-full h-full z-0"
+        viewBox="0 0 800 560"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <g class="hub-lines" fill="none">
+          <!-- Spokes -->
+          <line class="spoke spoke-top" x1="400" y1="280" x2="400" y2="112" />
+          <line class="spoke spoke-right" x1="400" y1="280" x2="624" y2="280" />
+          <line class="spoke spoke-bottom" x1="400" y1="280" x2="400" y2="448" />
+          <line class="spoke spoke-left" x1="400" y1="280" x2="176" y2="280" />
+          <!-- Ring -->
+          <line class="ring ring-lt" x1="176" y1="280" x2="400" y2="112" />
+          <line class="ring ring-tr" x1="400" y1="112" x2="624" y2="280" />
+          <line class="ring ring-rb" x1="624" y1="280" x2="400" y2="448" />
+          <line class="ring ring-bl" x1="400" y1="448" x2="176" y2="280" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- Mobile / tablet: stacked list -->
+    <div class="lg:hidden">
+      <div class="reveal flex flex-col items-center text-center gap-2 mb-10">
+        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-signal-dim text-signal border border-signal/30">
+          <span set:html={icons.sparkle} />
+        </div>
+        <p class="text-xs font-semibold uppercase tracking-[0.12em] text-ink">
+          {t(hubTitle)}
+        </p>
+        <p class="text-ink/80 text-sm leading-relaxed max-w-xs">
+          {t(hubSynthesis)}
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {values.map((v, i) => (
+          <div
+            class:list={[
+              "reveal flex items-start gap-4 border border-line bg-white/50 rounded-md p-5 transition-colors duration-300",
+              v.accent === "signal" ? "hover:border-signal/40" : "hover:border-copper/40"
+            ]}
+            style={`--reveal-delay: ${(i + 1) * 100}ms`}
+          >
+            <div class:list={[
+              "flex items-center justify-center w-12 h-12 rounded-full border shrink-0",
+              v.accent === "signal" ? badgeSignal : badgeCopper
+            ]}>
+              <span set:html={v.title === "Excellence" ? icons.star : v.title === "Innovation" ? icons.bulb : v.title === "Collaboration" ? icons.users : icons.leaf} />
+            </div>
+            <div>
+              <h3 class:list={["text-sm font-semibold uppercase tracking-[0.15em] mb-1.5", v.accent === "signal" ? titleSignal : titleCopper]}>{t(v.title)}</h3>
+              <p class="text-ink/80 text-sm leading-relaxed">{t(v.description)}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hub-lines line {
+    stroke: var(--color-ink);
+    stroke-opacity: 0.18;
+    stroke-width: 1;
+    transition: stroke 0.3s ease, stroke-opacity 0.3s ease, stroke-width 0.3s ease;
+  }
+
+  .hub-badge {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .hub-group:hover .hub-badge {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .hub-group:hover .hub-desc {
+    color: var(--color-ink);
+  }
+
+  .hub-top:hover ~ svg .spoke-top,
+  .hub-top:hover ~ svg .ring-tr,
+  .hub-top:hover ~ svg .ring-lt {
+    stroke: var(--color-signal-text);
+    stroke-opacity: 1;
+    stroke-width: 1.5;
+  }
+
+  .hub-right:hover ~ svg .spoke-right,
+  .hub-right:hover ~ svg .ring-tr,
+  .hub-right:hover ~ svg .ring-rb {
+    stroke: var(--color-copper);
+    stroke-opacity: 1;
+    stroke-width: 1.5;
+  }
+
+  .hub-bottom:hover ~ svg .spoke-bottom,
+  .hub-bottom:hover ~ svg .ring-rb,
+  .hub-bottom:hover ~ svg .ring-bl {
+    stroke: var(--color-signal-text);
+    stroke-opacity: 1;
+    stroke-width: 1.5;
+  }
+
+  .hub-left:hover ~ svg .spoke-left,
+  .hub-left:hover ~ svg .ring-bl,
+  .hub-left:hover ~ svg .ring-lt {
+    stroke: var(--color-copper);
+    stroke-opacity: 1;
+    stroke-width: 1.5;
+  }
+
+  .hub-center:hover ~ svg .spoke {
+    stroke: var(--color-signal-text);
+    stroke-opacity: 1;
+    stroke-width: 1.5;
+  }
+</style>

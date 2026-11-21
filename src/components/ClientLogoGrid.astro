@@ -1,0 +1,84 @@
+---
+import { translator, localeFromPath } from "../i18n";
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+
+import { Image } from "astro:assets";
+
+import nwcLogo from "../assets/clients/nwc.jpg";
+import cwcLogo from "../assets/clients/cwc.png";
+import qatarEnergyLogo from "../assets/clients/qatarEnergy.png";
+import switchgearLogo from "../assets/clients/switchgear.jpeg";
+import maccLogo from "../assets/clients/macc.jpeg";
+import kfshLogo from "../assets/clients/kfsh.png";
+import bilfingerLogo from "../assets/clients/bilfinger-logo.png";
+import nesmaLogo from "../assets/clients/Nesma_Logo.png";
+import nlcLogo from "../assets/clients/national_lighting.jpg";
+import iikLogo from "../assets/clients/IIKK.jpeg";
+import sparkLogo from "../assets/clients/spark.jpg";
+import maadenLogo from "../assets/clients/maaden.png";
+import arCementLogo from "../assets/clients/arabian-cement-logo.png";
+import aramcoStadiumLogo from "../assets/clients/aramco-stadium.png";
+import utecLogo from "../assets/clients/utec.jpeg";
+import mascoLogo from "../assets/clients/masco_group.jpeg";
+import aramcoLogo from "../assets/clients/Aramco-Logo.png";
+import zamilLogo from "../assets/clients/zamil.png";
+import enercoLogo from "../assets/clients/enerco.png";
+import diriyahLogo from "../assets/clients/Diriyah-Company.jpg";
+
+const clientLogos = [
+  { src: nwcLogo, alt: "National Water Company (NWC)" },
+  { src: cwcLogo, alt: "CWC" },
+  { src: qatarEnergyLogo, alt: "QatarEnergy" },
+  { src: switchgearLogo, alt: "Switchgear International W.L.L." },
+  { src: maccLogo, alt: "MACC (Modern Arch)" },
+  { src: kfshLogo, alt: "KFSHD" },
+  { src: bilfingerLogo, alt: "Bilfinger" },
+  { src: nesmaLogo, alt: "Nesma & Partners" },
+  { src: nlcLogo, alt: "National Lighting Company (NLC)" },
+  { src: iikLogo, alt: "IIK" },
+  { src: sparkLogo, alt: "Spark — King Salman Energy Park" },
+  { src: maadenLogo, alt: "Maaden" },
+  { src: arCementLogo, alt: "Arabian Cement" },
+  { src: aramcoStadiumLogo, alt: "Aramco Stadium" },
+  { src: utecLogo, alt: "UTEC" },
+  { src: mascoLogo, alt: "Masco Group" },
+  { src: aramcoLogo, alt: "Saudi Aramco" },
+  { src: zamilLogo, alt: "Zamil" },
+  { src: enercoLogo, alt: "Energy Equipment Rental Co. (Enerco)" },
+  { src: diriyahLogo, alt: "Diriyah Company" },
+];
+---
+
+<div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+  {clientLogos.map((client, i) => (
+    <div class="reveal" style={`--reveal-delay: ${(i % 6) * 60}ms`}>
+      <div class="flex items-center justify-center p-4 border border-line rounded-md bg-white/50 hover:border-signal/30 transition-all duration-300 h-28">
+        <Image
+          src={client.src}
+          alt={t(client.alt)}
+          class="h-20 w-auto max-w-full object-contain transition-all duration-300"
+          widths={[240]}
+          loading="lazy"
+        />
+      </div>
+    </div>
+  ))}
+</div>
+
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+</script>

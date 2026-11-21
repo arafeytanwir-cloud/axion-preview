@@ -1,0 +1,92 @@
+{
+  "404.html": {
+    "title": "<title>Page Not Found</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/404/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"The page you're looking for doesn't exist.\">"
+  },
+  "about/index.html": {
+    "title": "<title>About Axion Smart Company | Engineering Services Provider in Al Khobar, KSA</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/about/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Learn about Axion Smart Company — a specialised engineering firm delivering power systems, automation, IT, and infrastructure services across Saudi Arabia.\">"
+  },
+  "clients/index.html": {
+    "title": "<title>Our Clients | Axion Smart Company</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/clients/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Axion Smart Company is trusted by leading energy, industrial, and government organisations across Saudi Arabia and the Gulf.\">"
+  },
+  "collaborators/index.html": {
+    "title": "<title>Collaborators | Axion Smart Company</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/collaborators/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Axion Smart Company partners with leading technology and equipment manufacturers to deliver reliable, future-ready solutions.\">"
+  },
+  "contact/index.html": {
+    "title": "<title>Contact Axion Smart Company | Al Khobar, Saudi Arabia</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/contact/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Get in touch with Axion Smart Company for power engineering, automation, IT, and infrastructure services in Saudi Arabia.\">"
+  },
+  "index.html": {
+    "title": "<title>Axion Smart Company | Power, Automation &amp; Digital Infrastructure Engineering — Al Khobar, KSA</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Axion Smart Company delivers ETAP power studies, industrial automation, data center, security, and civil engineering services across Saudi Arabia. Trusted by Aramco, Maaden, QatarEnergy, and NWC.\">"
+  },
+  "services/civil-works-landscaping/index.html": {
+    "title": "<title>Civil Works &amp; Structural Services | Axion Smart Company</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/services/civil-works-landscaping/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Civil works and architectual design services supporting infrastructure and facility projects across Saudi Arabia.\">"
+  },
+  "services/data-center-it/index.html": {
+    "title": "<title>Data Center &amp; IT Infrastructure — TIA-942 &amp; Uptime Tier Certification Support | Axion Smart Company</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/services/data-center-it/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Data center design, build, and maintenance plus ANSI/TIA-942 and Uptime Institute Tier certification support — for IT, telecom, and finance clients in Saudi Arabia.\">"
+  },
+  "services/design-engineering/index.html": {
+    "title": "<title>Design &amp; Engineering Services | Axion Smart Company</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/services/design-engineering/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Detailed power and process automation engineering services — from single-line diagrams to full electrical system design, delivered with precision and peace of mind.\">"
+  },
+  "services/etap-network-study/index.html": {
+    "title": "<title>ETAP Network Study Services — Load Flow, Short Circuit &amp; Arc Flash Analysis | Axion Smart Company</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/services/etap-network-study/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Axion Smart Company performs ETAP-based load flow, short circuit, arc flash, protection &amp; coordination, and harmonic analysis for power distribution networks in Saudi Arabia.\">"
+  },
+  "services/index.html": {
+    "title": "<title>Our Services | Axion Smart Company</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/services/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Explore Axion Smart Company's full range of services — power engineering, ETAP studies, automation, data centers, surveillance, and civil works.\">"
+  },
+  "services/software-services/index.html": {
+    "title": "<title>Specialised Software Services | Axion Smart Company</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/services/software-services/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Software services supporting power system engineering, automation, and digital infrastructure projects across Saudi Arabia.\">"
+  },
+  "services/specialised-services/index.html": {
+    "title": "<title>Maintenance, Retrofit &amp; Spare Parts Services | Axion Smart Company</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/services/specialised-services/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Flexible maintenance plans, equipment upgrades, installation &amp; commissioning, and spare parts management for electrical distribution systems.\">"
+  },
+  "services/substation-automation/index.html": {
+    "title": "<title>Substation Automation &amp; Power Digitisation | Axion Smart Company</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/services/substation-automation/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Wireless, add-on power digitisation for existing electrical panels — fault detection, heat sensing, and power monitoring without replacing existing assets.\">"
+  },
+  "services/video-surveillance/index.html": {
+    "title": "<title>ELV, BMS &amp; Smart Building Systems</title>",
+    "canonical": "<link rel=\"canonical\" href=\"https://axion-s.com/services/video-surveillance/\">",
+    "robots": null,
+    "description": "<meta name=\"description\" content=\"Integrated BMS and ELV solutions for smarter, safer, and more energy-efficient facilities — including HVAC automation, CCTV, access control, and centralized monitoring across Saudi Arabia.\">"
+  }
+}

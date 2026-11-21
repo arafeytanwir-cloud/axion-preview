@@ -1,0 +1,34 @@
+{
+  "name": "axion-website",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test:i18n": "node scripts/verify-pages-preview.mjs",
+    "test:preview": "node scripts/verify-pages-preview.mjs",
+    "i18n:complete": "node scripts/complete-arabic.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^6.0.1",
+    "@astrojs/sitemap": "^3.7.3",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/noto-sans-arabic": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.1.4",
+    "preact": "^10.29.7",
+    "tailwindcss": "^4.3.3",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@playwright/test": "^1.65.1",
+    "typescript": "^6.0.3"
+  }
+}
